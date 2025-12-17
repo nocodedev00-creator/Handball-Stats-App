@@ -1,10 +1,8 @@
-[
-  {
-    "relation": ["delegate_permission/common.handle_all_urls"],
-    "target": {
-      "namespace": "android_app",
-      "package_name": "com.stat.handball",
-      "sha256_cert_fingerprints": ["62:BD:57:CF:EA:C7:34:53:B0:D1:99:9D:78:BA:A7:C8:C9:8E:61:F2:07:75:FD:AB:91:0E:43:F1:A5:FD:00:43"]
-    }
-  }
-]
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "io.github.nocodedev00_creator.twa",
+        "sha256_cert_fingerprints": ["83:D4:A0:C9:67:45:C3:6A:D9:FA:82:6D:5F:AA:5F:1B:4B:18:F8:81:C2:D6:8F:AF:74:C9:2C:F9:AE:42:62:16"]
+      }
+    }]
