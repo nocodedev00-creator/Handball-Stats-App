@@ -1,8 +1,9 @@
 {
-  "name": "Stat Hand Pro V5",
+  "name": "Stat Hand Pro V7",
   "short_name": "StatHand",
   "description": "Outil de suivi des statistiques de tirs et d'arrêts au handball.",
   "start_url": "index.html",
+  "id": "/?pwa-id=handball-stats-app-unique",
   "display": "fullscreen",
   "background_color": "#0f2436",
   "theme_color": "#ff6f63",
@@ -20,6 +21,7 @@
   ],
   "orientation": "portrait"
 }
+
 
 
 
