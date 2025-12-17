@@ -1,4 +1,4 @@
-{
+{z
   "name": "Stat Hand Pro V5",
   "short_name": "StatHand",
   "description": "Outil de suivi des statistiques de tirs et d'arrêts au handball.",
@@ -19,4 +19,5 @@
     }
   ]
 }
+
 
