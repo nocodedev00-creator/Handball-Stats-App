@@ -2,20 +2,21 @@
   "name": "Stat Hand Pro V5",
   "short_name": "StatHand",
   "description": "Outil de suivi des statistiques de tirs et d'arrêts au handball.",
-  "start_url": "index.html",             <-- CORRECTION : chemin relatif
+  "start_url": "index.html",
   "display": "standalone",
   "background_color": "#0f2436",
   "theme_color": "#ff6f63",
   "icons": [
     {
-      "src": "icon-192.png",             <-- CORRECTION : chemin relatif
+      "src": "icon-192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "icon-512.png",             <-- CORRECTION : chemin relatif
+      "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
   ]
 }
+
