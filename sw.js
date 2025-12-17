@@ -1,5 +1,5 @@
 // Incrémentez le numéro (v2, v3, etc.) à chaque modification du code.
-const CACHE_NAME = 'stathand-cache-v2'; 
+const CACHE_NAME = 'stathand-cache-v3'; 
 
 // La liste est courte car tout est dans index.html
 const urlsToCache = [
