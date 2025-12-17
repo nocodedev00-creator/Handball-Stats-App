@@ -1,5 +1,5 @@
 {
-  "name": "Stat Hand Pro V5",
+  "name": "Stats Handball - pe V7",
   "short_name": "StatHand",
   "description": "Outil de suivi des statistiques de tirs et d'arrêts au handball.",
   "start_url": "/index.html",
@@ -18,4 +18,5 @@
       "type": "image/png"
     }
   ]
+
 }
