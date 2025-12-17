@@ -1,44 +1,46 @@
-const CACHE_NAME = 'handball-stats-cache-v1';
+// Incrémentez le numéro (v2, v3, etc.) à chaque modification du code.
+const CACHE_NAME = 'stathand-cache-v2'; 
+
+// La liste est courte car tout est dans index.html
 const urlsToCache = [
-  '/',
-  'index.html',
+  './',             // La racine de l'application
+  'index.html',     // Contient tout le CSS et le JS
   'manifest.json',
   'icon-192.png',
   'icon-512.png',
-  // Ajoutez ici toutes les feuilles de style (CSS), les scripts (JS) et les images critiques
-  'votre-style.css', 
-  'votre-script.js', 
-  // N'oubliez pas toutes les autres ressources essentielles !
+  // Si vous avez d'autres images ou polices non intégrées, ajoutez-les ici.
+  // Sinon, cette liste est suffisante.
 ];
 
-// Événement 1: INSTALL - Mise en cache des ressources
+// Événement 1: INSTALLATION (Mise en cache)
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
-        console.log('Cache ouvert, ajout des ressources.');
+        console.log('Service Worker: Cache ouvert, ajout des ressources.');
         return cache.addAll(urlsToCache);
       })
+      .catch(error => {
+        console.error('Échec de la mise en cache lors de l\'installation:', error);
+      })
   );
-  self.skipWaiting(); // Force le Service Worker à s'activer immédiatement
+  self.skipWaiting();
 });
 
-// Événement 2: FETCH - Interception des requêtes et service du cache
+// Événement 2: RÉCUPÉRATION (Cache en premier)
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
       .then(response => {
-        // Si la ressource est dans le cache, on la sert immédiatement
         if (response) {
           return response;
         }
-        // Sinon, on va la chercher sur le réseau
         return fetch(event.request);
       })
   );
 });
 
-// Événement 3: ACTIVATE - Nettoyage des vieux caches (important pour les mises à jour)
+// Événement 3: ACTIVATION (Nettoyage des anciens caches)
 self.addEventListener('activate', event => {
   const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
@@ -46,7 +48,6 @@ self.addEventListener('activate', event => {
       return Promise.all(
         cacheNames.map(cacheName => {
           if (cacheWhitelist.indexOf(cacheName) === -1) {
-            // Supprime tous les caches qui ne sont pas dans la liste blanche
             return caches.delete(cacheName);
           }
         })
