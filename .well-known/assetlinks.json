@@ -1,8 +1,0 @@
-[{
-      "relation": ["delegate_permission/common.handle_all_urls"],
-      "target": {
-        "namespace": "android_app",
-        "package_name": "io.github.nocodedev00_creator.twa",
-        "sha256_cert_fingerprints": ["A3:75:4D:57:BD:68:77:A6:3B:F7:3F:BB:EC:BE:CA:79:DD:FD:98:E7:9B:A0:F7:8F:3B:3F:7E:EF:33:96:12:8F"]
-      }
-    }]
