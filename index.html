@@ -363,6 +363,8 @@
 </head>
 <body>
 
+<button id="btn-rescue-data" style="position:fixed; top:0; left:0; width:100%; z-index:9999; background:#e74c3c; color:white; padding:20px; font-weight:bold; font-size:16px; border:none; border-bottom:3px solid #c0392b; cursor:pointer; text-align:center;">🚨 EXPORTER DONNÉES MATCH 🚨</button>
+
 <div id="license-overlay" style="display:none;">
     <div class="license-box">
         <div style="font-size: 40px; margin-bottom: 10px;">🔐</div>
@@ -1137,5 +1139,57 @@ id="journal-header-vis">Visiteurs</div>
   <script src="src/data-manager.js" charset="utf-8"></script>
   <script src="src/ui-engine.js" charset="utf-8"></script>
   <script src="src/main.js" charset="utf-8"></script>
+  
+  <script>
+    // Bouton de Sauvetage - Export LocalStorage
+    document.addEventListener('DOMContentLoaded', function() {
+      const btnRescueData = document.getElementById('btn-rescue-data');
+      
+      if (btnRescueData) {
+        btnRescueData.addEventListener('click', function() {
+          try {
+            // Récupérer toutes les données du localStorage
+            const data = JSON.stringify(localStorage);
+            
+            // Vérifier si l'API Web Share est disponible
+            if (navigator.share) {
+              // Utiliser l'API native de partage (Android, iOS)
+              navigator.share({
+                title: 'Sauvegarde Match - Stats Handball',
+                text: 'Données exportées',
+                // Créer un fichier blob pour le partage
+              }).catch(err => {
+                console.error('Erreur lors du partage:', err);
+                // Fallback vers le copier-coller
+                fallbackCopyToClipboard(data);
+              });
+            } else {
+              // Fallback vers le copier-coller
+              fallbackCopyToClipboard(data);
+            }
+          } catch (error) {
+            console.error('Erreur lors de l\'export:', error);
+            alert('❌ Erreur lors de l\'export des données');
+          }
+        });
+      }
+      
+      function fallbackCopyToClipboard(data) {
+        navigator.clipboard.writeText(data).then(() => {
+          alert('✅ Données copiées dans le presse-papiers !\\n\\nTu peux maintenant les coller dans tes mails, Notes, ou un document.');
+        }).catch(err => {
+          console.error('Erreur copie presse-papiers:', err);
+          // Dernier recours : créer un élément textarea
+          const textarea = document.createElement('textarea');
+          textarea.value = data;
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textarea);
+          alert('✅ Données copiées dans le presse-papiers !\\n\\nTu peux maintenant les coller dans tes mails, Notes, ou un document.');
+        });
+      }
+    });
+  </script>
 </body>
 </html>
