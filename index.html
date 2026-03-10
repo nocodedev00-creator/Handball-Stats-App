@@ -10,7 +10,7 @@
  --accent:#ff6f63;
  --gold:#f1c40f; --white:#fff; --muted:#98a3b3; --success:#2ecc71; --blue:#3498db; --orange:#f39c12; --danger:#e74c3c; }
   html, body{height:100%; margin:0; background:var(--bg); font-family:Inter,system-ui,Arial; color:var(--white);
- overflow: hidden;}
+ overflow-y: auto;}
   .app-container { display: flex; flex-direction: column; height: 100vh; height: 100dvh; }
   .header-bar { background:#0d2a3d; padding:6px; display:flex;
  gap:12px; justify-content:center; font-weight:700; border-bottom: 1px solid rgba(255,255,255,0.1); flex-shrink: 0; }
@@ -19,7 +19,7 @@
   .nav-btn.active { outline:2px solid rgba(241,196,15,0.18); background:rgba(255,255,255,0.02); color: var(--gold);
  }
   .page-view { flex: 1; display: none; flex-direction: column; align-items: center; padding: 2px; gap: 2px; width: 100%; box-sizing: border-box;
- overflow: hidden; }
+ overflow-y: auto; }
   .page-view.active-view { display: flex; }
   .header{width:100%;max-width:900px;display:flex;justify-content:flex-end;align-items:center;padding:4px; gap:5px; flex-shrink: 0; flex-wrap: wrap;
  transition: background 0.3s;}
@@ -62,12 +62,12 @@
 
   .main-row{ width:100%; max-width:900px;
  display:grid; grid-template-columns:70px 1fr 70px; gap:2px; align-items:stretch; flex: 1;
- min-height: 0; overflow: hidden; }
+ min-height: 0; overflow-y: auto; }
   .player-col{ display:flex; flex-direction:column; gap:1px; align-items:stretch;
  padding:0 1px; height: 100%; overflow-y: auto; overflow-x: hidden;
  -webkit-overflow-scrolling: touch; }
   .court-wrap{ position:relative; width:100%; background:linear-gradient(180deg,#091726,#0d2a3d); border-radius:8px; padding:2px; box-sizing:border-box; display:flex;
- flex-direction:column; align-items:center; justify-content: space-between; height: 100%; overflow: hidden;
+ flex-direction:column; align-items:center; justify-content: space-between; height: 100%; overflow-y: auto;
  }
   .team-name-title { text-align: center; font-size: 10px; font-weight: 700; margin-bottom: 2px;
  color: var(--muted); text-transform: uppercase; white-space: nowrap; overflow: hidden;
