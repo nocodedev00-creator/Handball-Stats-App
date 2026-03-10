@@ -363,8 +363,6 @@
 </head>
 <body>
 
-<button id="btn-rescue-web" style="display:block; width:100%; background:#e74c3c; color:white; padding:15px; text-align:center; font-weight:bold; font-size:18px; border:none; z-index:99999; position:relative;">🚨 RÉCUPÉRER MES DONNÉES 🚨</button>
-
 <div id="license-overlay" style="display:none;">
     <div class="license-box">
         <div style="font-size: 40px; margin-bottom: 10px;">🔐</div>
@@ -1135,26 +1133,9 @@ id="journal-header-vis">Visiteurs</div>
     </div>
   </div> 
   
-  <script src="app.js?v=2" charset="utf-8"></script>
+  <script src="app.js" charset="utf-8"></script>
   
   
   
-  
-  <script>
-    // Bouton de Sauvetage - Export LocalStorage (version simplifiée)
-    document.addEventListener('DOMContentLoaded', () => {
-        const btn = document.getElementById('btn-rescue-web');
-        if(btn) {
-            btn.addEventListener('click', () => {
-                const data = JSON.stringify(localStorage);
-                if (navigator.share) {
-                    navigator.share({ title: 'Sauvegarde Match', text: data }).catch(console.error);
-                } else {
-                    navigator.clipboard.writeText(data).then(() => alert("Données copiées ! Collez-les dans un email."));
-                }
-            });
-        }
-    });
-  </script>
 </body>
 </html>
