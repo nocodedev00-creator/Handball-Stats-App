@@ -628,17 +628,17 @@ class="btn-mini-action" onclick="resetMatch()">🔄</button>
           <div class="strict-canvas">
             <!-- ZONE DE CAPTURE DU BUT (BORDURE ROUGE) -->
             <div class="goal-capture-zone" id="impact-board-match">
-              <svg id="arena-svg" viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+              <svg id="arena-svg" viewBox="0 -40 400 220" xmlns="http://www.w3.org/2000/svg">
                 <!-- FOND CLIQUABLE NORMAL (SANS DÉBORDEMENT) -->
-                <rect class="missed-zone full-bg" x="0" y="0" width="400" height="250" fill="#1a2634" onclick="setMissedShot()"></rect>
+                <rect class="missed-zone full-bg" x="0" y="-40" width="400" height="260" fill="#1a2634" onclick="setMissedShot()"></rect>
                 
-                <!-- BUT (50-250 en Y, 75% de largeur) -->
+                <!-- BUT (0-220 en Y, 75% de largeur) -->
                 <!-- ZONE HAUTE CLIQUABLE (au-dessus du but, pour impacts hauts) -->
-                <g id="goal-top-zone" transform="translate(50, 50)">
-                  <rect x="0" y="-50" width="300" height="50" fill="rgba(0,0,0,0.3)" stroke="none" style="cursor: crosshair;" onclick="setMissedShot()"></rect>
+                <g id="goal-top-zone" transform="translate(50, 0)">
+                  <rect x="0" y="-15" width="320" height="15" fill="rgba(0,0,0,0.3)" stroke="none" style="cursor: crosshair;" onclick="setMissedShot()"></rect>
                 </g>
                 
-                <g id="goal-group" transform="translate(40, 40)">
+                <g id="goal-group" transform="translate(40, 0)">
                   <!-- BUT RÉGLEMENTAIRE (300x200 soit ratio 3/2) -->
                   <rect x="10" y="10" width="300" height="200" fill="#1a2634" stroke="#334" stroke-width="1"></rect>
                   <path d="M10 10 L310 210 M310 10 L10 210" stroke="#334" stroke-width="1" opacity="0.5"></path>
@@ -896,17 +896,17 @@ value="5" min="1">
           <div class="strict-canvas">
             <!-- ZONE DE CAPTURE DU BUT (BORDURE VERTE) -->
             <div class="goal-capture-zone" id="impact-board-stats">
-              <svg id="arena-stats-svg" viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+              <svg id="arena-stats-svg" viewBox="0 -40 400 220" xmlns="http://www.w3.org/2000/svg">
                 <!-- FOND CLIQUABLE NORMAL (SANS DÉBORDEMENT) -->
-                <rect class="missed-zone full-bg" x="0" y="0" width="400" height="250" fill="#1a2634"></rect>
+                <rect class="missed-zone full-bg" x="0" y="-40" width="400" height="260" fill="#1a2634"></rect>
                 
-                <!-- BUT (50-250 en Y, 75% de largeur) -->
+                <!-- BUT (0-220 en Y, 75% de largeur) -->
                 <!-- ZONE HAUTE CLIQUABLE (au-dessus du but, pour impacts hauts) -->
-                <g id="goal-top-zone-stats" transform="translate(50, 50)">
-                  <rect x="0" y="-50" width="300" height="50" fill="rgba(0,0,0,0.3)" stroke="none" style="cursor: crosshair;"></rect>
+                <g id="goal-top-zone-stats" transform="translate(50, 0)">
+                  <rect x="0" y="-15" width="320" height="15" fill="rgba(0,0,0,0.3)" stroke="none" style="cursor: crosshair;"></rect>
                 </g>
                 
-                <g id="goal-group-stats" transform="translate(40, 40)">
+                <g id="goal-group-stats" transform="translate(40, 0)">
                   <!-- BUT RÉGLEMENTAIRE (300x200 soit ratio 3/2) -->
                   <rect x="10" y="10" width="300" height="200" fill="#1a2634" stroke="#334" stroke-width="1"></rect>
                   <path d="M10 10 L310 210 M310 10 L10 210" stroke="#334" stroke-width="1" opacity="0.5"></path>
