@@ -80,6 +80,22 @@
   .gb-selector-title{font-size:9px;text-align:center;color:var(--gold);font-weight:700;}
   .gb-btn{padding:2px;border-radius:2px;cursor:pointer;border:1px solid rgba(255,215,0,0.3);background:rgba(255,215,0,0.05);color:var(--gold);font-weight:700;text-align:center;transition:all 0.2s;font-size:11px;}
   .gb-btn.active-gb{background:var(--gold);color:#0f2436;border-color:var(--gold);}
+
+  /* Animation clignotante rouge pour zone GB sans sélection */
+  @keyframes gb-no-selection-blink {
+    0%, 49% { border-color: var(--gold); background-color: rgba(255,215,0,0.1); }
+    50%, 100% { border-color: #e74c3c; background-color: rgba(231,76,60,0.2); }
+  }
+  
+  .gb-selector.gb-no-selection {
+    animation: gb-no-selection-blink 1s linear infinite;
+  }
+
+  .gb-selector.gb-no-selection .gb-selector-title {
+    color: #e74c3c;
+    font-weight: bold;
+  }
+
   .player-btn { width:100%;
  position: relative; display:flex; flex-direction: column;
  justify-content:center; align-items:center; font-weight:700; font-size:14px; padding:0px; height: 36px; flex-shrink: 0; border-radius:4px; cursor:pointer; border:1px solid rgba(255,255,255,0.2);
@@ -123,11 +139,9 @@
   .center-score span { color: var(--gold);
  }
   .goal-container { width: 100%;
- max-width: 340px;
- position: relative; margin-bottom: 1px; display: flex; justify-content: center; overflow: hidden; height: 35%;
- margin-bottom: 1px;
+ position: relative; display: flex; justify-content: center; align-items: center; overflow: hidden; margin: 0; padding: 0; height: 100%;
  }
-  svg#goal-svg, svg#goal-stats-svg { height: 100%; width: auto; max-width: 100%; display: block; background: rgba(255,255,255,0.05); border-radius: 4px;
+  svg#goal-svg, svg#goal-stats-svg { height: auto; width: 75%; aspect-ratio: 3 / 2; display: block; background: rgba(255,255,255,0.05); border-radius: 4px;
  cursor: crosshair;
  border: 1px solid rgba(255,255,255,0.1); touch-action: none; }
   .impact-marker { position: absolute; width: 10px; height: 10px; border-radius: 50%;
@@ -138,9 +152,9 @@
   .impact-blue { background: var(--blue); }
   .impact-red { background: var(--danger); }
   .court-container { width:100%; position:relative; display: flex;
- justify-content: center; align-items: flex-end; overflow: hidden; flex-grow: 1; max-height: none; }
-  svg#court, svg#court-stats-svg, svg#court-defense-svg { height: 100%; width: auto;
- max-width: 100%; display:block;}
+ justify-content: center; align-items: flex-start; overflow: hidden; margin: 0; padding: 0; height: 100%; }
+  svg#court, svg#court-stats-svg, svg#court-defense-svg { height: 100%; width: 100%;
+ display:block;}
   .zone-shape { cursor: pointer; fill: transparent; stroke: rgba(255, 255, 255, 0.3); stroke-width: 1px; stroke-dasharray: 4 4;
  transition: all 0.2s; }
   .zone-shape:hover { fill: rgba(255, 255, 255, 0.1); stroke: #fff; stroke-dasharray: 0;
@@ -266,9 +280,9 @@
  }
     .center-score { padding: 1px 4px; font-size: 14px; margin-bottom: 1px;
  }
-    .goal-container { flex: 0 0 auto; height: 35%; margin-bottom: 1px;
+    .goal-container { flex: 0 0 35%; height: auto; margin-bottom: 1px;
  }
-    .court-container { flex: 1 1 auto; max-height: none; }
+    .court-container { flex: 0 0 65%; max-height: none; }
     .buttons-container { gap: 2px;
  padding: 2px; }
     .game-btn { padding: 10px 0; font-size: 12px;
@@ -610,117 +624,85 @@ class="btn-mini-action" onclick="resetMatch()">🔄</button>
      </div>
 
       <div class="court-wrap">
-        <div class="goal-container">
-          <svg id="goal-svg" viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg">
-          
-  <rect x="10" y="10" width="300" height="210" fill="#1a2634" stroke="#334" stroke-width="1"></rect>
-            <path d="M10 10 L310 220 M310 10 L10 220" 
- stroke="#334" 
- stroke-width="1" 
- opacity="0.5"></path>
-    
-        <rect x="0" y="0" width="10" height="220" fill="#eee" stroke="#ccc"></rect>
-    
-            <rect x="0" y="20" width="10" height="20" fill="#d32f2f"></rect>
-            <rect x="0" y="60" width="10" height="20" fill="#d32f2f"></rect>
-            
-<rect x="0" y="100" width="10" height="20" fill="#d32f2f"></rect>
-            <rect x="0" y="140" width="10" height="20" fill="#d32f2f"></rect>
-   <rect x="0" y="180" width="10" height="20" fill="#d32f2f"></rect>
-      
-      <rect x="310" y="0" width="10" height="220" fill="#eee" stroke="#ccc"></rect>
- 
-           <rect x="310" y="20" width="10" height="20" fill="#d32f2f"></rect>
-            <rect x="310" y="60" width="10" height="20" fill="#d32f2f"></rect>
-         
-   <rect x="310" y="100" width="10" height="20" fill="#d32f2f"></rect>
-            <rect x="310" y="140" width="10" height="20" fill="#d32f2f"></rect>
-      <rect x="310" y="180" width="10" height="20" fill="#d32f2f"></rect>
-         
-   <rect x="0" y="0" width="320" 
- height="10" fill="#eee" stroke="#ccc"></rect>
-            <rect x="20" y="0" width="20" height="10" fill="#d32f2f"></rect>
-            <rect x="60" y="0" width="20" height="10" fill="#d32f2f"></rect>
-     
-       <rect x="100" y="0" width="20" height="10" fill="#d32f2f"></rect>
-            
-<rect x="140" y="0" width="20" 
- height="10" fill="#d32f2f"></rect>
-   
-          <rect x="180" y="0" width="20" height="10" fill="#d32f2f"></rect>
-   
-         <rect 
- x="220" y="0" width="20" height="10" fill="#d32f2f"></rect>
-            <rect x="260" y="0" width="20" height="10" fill="#d32f2f"></rect>
-            <rect x="300" y="0" width="20" height="10" fill="#d32f2f"></rect>
-  
-        </svg>
-          <div id="goal-impact-marker" class="impact-marker impact-gold" 
- style="display:none;"></div>
-     
-     </div>
+        <div class="arena-wrapper">
+          <div class="strict-canvas">
+            <!-- ZONE DE CAPTURE DU BUT (BORDURE ROUGE) -->
+            <div class="goal-capture-zone" id="impact-board-match">
+              <svg id="arena-svg" viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+                <!-- FOND CLIQUABLE NORMAL (SANS DÉBORDEMENT) -->
+                <rect class="missed-zone full-bg" x="0" y="0" width="400" height="250" fill="#1a2634" onclick="setMissedShot()"></rect>
+                
+                <!-- BUT (50-250 en Y, 75% de largeur) -->
+                <!-- ZONE HAUTE CLIQUABLE (au-dessus du but, pour impacts hauts) -->
+                <g id="goal-top-zone" transform="translate(50, 50)">
+                  <rect x="0" y="-50" width="300" height="50" fill="rgba(0,0,0,0.3)" stroke="none" style="cursor: crosshair;" onclick="setMissedShot()"></rect>
+                </g>
+                
+                <g id="goal-group" transform="translate(40, 40)">
+                  <!-- BUT RÉGLEMENTAIRE (300x200 soit ratio 3/2) -->
+                  <rect x="10" y="10" width="300" height="200" fill="#1a2634" stroke="#334" stroke-width="1"></rect>
+                  <path d="M10 10 L310 210 M310 10 L10 210" stroke="#334" stroke-width="1" opacity="0.5"></path>
+                  
+                  <!-- Bande "Hors-Cadre" (U-Shape) -->
+                  <path id="missed-zone-left" class="missed-zone" d="M0 0 L10 0 L10 210 L0 210 Z" onclick="setMissedShot()"></path>
+                  <path id="missed-zone-top" class="missed-zone" d="M0 0 L320 0 L320 10 L0 10 Z" onclick="setMissedShot()"></path>
+                  <path id="missed-zone-right" class="missed-zone" d="M310 0 L320 0 L320 210 L310 210 Z" onclick="setMissedShot()"></path>
 
- 
-        <div class="court-container">
-      
-     <svg id="court" viewBox="0 0 400 600" xmlns="http://www.w3.org/2000/svg">
-    
-            <rect x="0" y="0" width="400" height="600" fill="#1a3a52"></rect>
-            <line x1="20" y1="40" x2="380" y2="40" stroke="#fff" stroke-width="4"></line>
-     
-       <line x1="20" y1="40" x2="20" y2="560" stroke="#fff" stroke-width="4"></line>
-       
-     <line 
- x1="380" y1="40" x2="380" y2="560" stroke="#fff" stroke-width="4"></line>
- 
+                  <!-- Poteaux et barre masqués visuellement (hors viewBox) mais conservés pour la structure -->
+                  <rect x="0" y="0" width="10" height="210" fill="#eee" stroke="#ccc"></rect>
+                  <rect x="0" y="20" width="10" height="20" fill="#d32f2f"></rect>
+                  <rect x="0" y="60" width="10" height="20" fill="#d32f2f"></rect>
+                  <rect x="0" y="100" width="10" height="20" fill="#d32f2f"></rect>
+                  <rect x="0" y="140" width="10" height="20" fill="#d32f2f"></rect>
+                  <rect x="0" y="180" width="10" height="20" fill="#d32f2f"></rect>
+                  <rect x="310" y="0" width="10" height="210" fill="#eee" stroke="#ccc"></rect>
+                  <rect x="310" y="20" width="10" height="20" fill="#d32f2f"></rect>
+                  <rect x="310" y="60" width="10" height="20" fill="#d32f2f"></rect>
+                  <rect x="310" y="100" width="10" height="20" fill="#d32f2f"></rect>
+                  <rect x="310" y="140" width="10" height="20" fill="#d32f2f"></rect>
+                  <rect x="310" y="180" width="10" height="20" fill="#d32f2f"></rect>
+                  <rect x="0" y="0" width="320" height="10" fill="#eee" stroke="#ccc"></rect>
+                  <rect x="20" y="0" width="20" height="10" fill="#d32f2f"></rect>
+                  <rect x="60" y="0" width="20" height="10" fill="#d32f2f"></rect>
+                  <rect x="100" y="0" width="20" height="10" fill="#d32f2f"></rect>
+                  <rect x="140" y="0" width="20" height="10" fill="#d32f2f"></rect>
+                  <rect x="180" y="0" width="20" height="10" fill="#d32f2f"></rect>
+                  <rect x="220" y="0" width="20" height="10" fill="#d32f2f"></rect>
+                  <rect x="260" y="0" width="20" height="10" fill="#d32f2f"></rect>
+                  <rect x="300" y="0" width="20" height="10" fill="#d32f2f"></rect>
+                </g>
+
+                <div id="goal-impact-marker" class="impact-marker impact-gold" style="display:none;"></div>
+              </svg>
+            </div>
             
-<rect 
- x="140" y="30" width="120" height="60" fill="none" stroke="#ff6f63" stroke-width="3"></rect>
-            <path d="M 
- 60 40 Q 60 180 200 180 Q 340 180 340 40" fill="none" stroke="#fff" stroke-width="4" style="pointer-events: none;"></path>
-            <path d="M 20 40 Q 20 220 
-200 220 Q 380 220 380 40" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="8 8" opacity="0.6" style="pointer-events: none;"></path>
-    
-       
-  <line x1="20" y1="560" x2="380" y2="560" stroke="#fff" 
- stroke-width="4"></line>
-        
-   
-   <circle cx="200" cy="200" r="4" fill="#fff" style="pointer-events: none;"></circle>
-            <path id="z-pen" class="zone-shape" 
- d="M 60,40 L 340,40 Q 340,180 200,180 Q 60,180 60,40 Z"></path>
-             <text x="200" y="124" font-size="10" text-anchor="middle" fill="#fff" font-weight="800" style="pointer-events:none;text-shadow:0 1px 2px #000;">7m</text>
- 
-           <path id="z-6-9-ail-g" class="zone-shape" d="M 20,40 
- L 60,40 Q 60,80 65,110 L 20,110 Z"></path>
- 
-         
-    <path 
-id="z-6-9-arr-g" class="zone-shape" d="M 
- 65,110 Q 80,150 130,170 L 110,215 Q 50,190 25,110 L 65,110 Z"></path>
-          <path id="z-6-9-pivot" class="zone-shape" d="M 130,170 Q 
- 200,180 270,170 L 290,215 Q 200,230 110,215 Z"></path>
-            <path id="z-6-9-arr-d" class="zone-shape" d="M 335,110 Q 320,150 270,170 L 290,215 Q 350,190 375,110 L 
-335,110 Z"></path>
-          <path id="z-6-9-ail-d" class="zone-shape" 
- d="M 340,40 L 380,40 L 380,110 L 335,110 Q 
- 340,80 340,40 Z"></path>
-       
- 
-     
-  <path id="z-9-12-g" class="zone-shape" d="M 20,110 L 25,110 Q 50,190 110,215 L 100,320 L 20,320 Z"></path>
-            <path id="z-9-12-c" class="zone-shape" d="M 
- 110,215 Q 200,230 290,215 L 300,320 L 100,320 Z"></path>
-            <path id="z-9-12-d" class="zone-shape" d="M 290,215 Q 350,190 375,110 L 380,110 L 380,320 
-L 300,320 Z"></path>
-          
-   <path id="z-long" class="zone-shape" d="M 20,320 L 380,320 L 
- 380,560 L 20,560 Z"></path>
-    
-   
-  
-   </svg>
-      </div>
+            <!-- ZONE DE RENDU DU TERRAIN -->
+            <div class="court-render-zone">
+              <svg id="court-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="400" height="400" fill="#1a3a52"></rect>
+                <line x1="20" y1="40" x2="380" y2="40" stroke="#fff" stroke-width="4"></line>
+                <line x1="20" y1="40" x2="20" y2="400" stroke="#fff" stroke-width="4"></line>
+                <line x1="380" y1="40" x2="380" y2="400" stroke="#fff" stroke-width="4"></line>
+                <rect x="140" y="30" width="120" height="60" fill="none" stroke="#ff6f63" stroke-width="3"></rect>
+                <path d="M 60 40 Q 60 180 200 180 Q 340 180 340 40" fill="none" stroke="#fff" stroke-width="4" style="pointer-events: none;"></path>
+                <path d="M 20 40 Q 20 220 200 220 Q 380 220 380 40" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="8 8" opacity="0.6" style="pointer-events: none;"></path>
+                <line x1="20" y1="400" x2="380" y2="400" stroke="#fff" stroke-width="4"></line>
+                <circle cx="200" cy="200" r="4" fill="#fff" style="pointer-events: none;"></circle>
+                <path id="z-pen" class="zone-shape" d="M 60,40 L 340,40 Q 340,180 200,180 Q 60,180 60,40 Z"></path>
+                <text x="200" y="124" font-size="10" text-anchor="middle" fill="#fff" font-weight="800" style="pointer-events:none;text-shadow:0 1px 2px #000;">7m</text>
+                <path id="z-6-9-ail-g" class="zone-shape" d="M 20,40 L 60,40 Q 60,80 65,110 L 20,110 Z"></path>
+                <path id="z-6-9-arr-g" class="zone-shape" d="M 65,110 Q 80,150 130,170 L 110,215 Q 50,190 25,110 L 65,110 Z"></path>
+                <path id="z-6-9-pivot" class="zone-shape" d="M 130,170 Q 200,180 270,170 L 290,215 Q 200,230 110,215 Z"></path>
+                <path id="z-6-9-arr-d" class="zone-shape" d="M 335,110 Q 320,150 270,170 L 290,215 Q 350,190 375,110 L 335,110 Z"></path>
+                <path id="z-6-9-ail-d" class="zone-shape" d="M 340,40 L 380,40 L 380,110 L 335,110 Q 340,80 340,40 Z"></path>
+                <path id="z-9-12-g" class="zone-shape" d="M 20,110 L 25,110 Q 50,190 110,215 L 100,320 L 20,320 Z"></path>
+                <path id="z-9-12-c" class="zone-shape" d="M 110,215 Q 200,230 290,215 L 300,320 L 100,320 Z"></path>
+                <path id="z-9-12-d" class="zone-shape" d="M 290,215 Q 350,190 375,110 L 380,110 L 380,320 L 300,320 Z"></path>
+                <path id="z-long" class="zone-shape" d="M 20,320 L 380,320 L 380,400 L 20,400 Z"></path>
+              </svg>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="player-col">
@@ -896,189 +878,122 @@ value="5" min="1">
     </div>
   </div>
   
- <div id="page-stats" class="page-view">
+  <div id="page-stats" class="page-view">
     <div class="header" style="justify-content: center;">
         <button class="stat-toggle-btn" id="stat-toggle-team" onclick="toggleStatView()">Tirs : LOCAUX</button>
     </div>
     <div class="main-row">
       <div class="player-col">
         <div class="team-name-title" id="stat-lbl-local">Locaux</div>
-     
-   <div id="stat-left-col"></div>
-    
-   </div>
+        <div id="stat-left-col"></div>
+      </div>
+
       <div class="court-wrap">
- 
-  
-  
-  
-      <div style="width:100%;
- display:flex; gap:5px; justify-content:center;
- margin-bottom:2px;">
+        <div style="width:100%; display:flex; gap:5px; justify-content:center; margin-bottom:2px;">
             <div id="filter-display-stat"></div>
-         </div>
-         <div class="goal-container">
-          <svg id="goal-stats-svg" viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg">
-            <rect x="10" y="10" width="300" height="210" fill="#1a2634" stroke="#334" stroke-width="1"></rect>
-            <path d="M10 10 L310 220 M310 10 L10 220" stroke="#334" stroke-width="1" opacity="0.5"></path>
-       
- 
+        </div>
+        <div class="arena-wrapper">
+          <div class="strict-canvas">
+            <!-- ZONE DE CAPTURE DU BUT (BORDURE VERTE) -->
+            <div class="goal-capture-zone" id="impact-board-stats">
+              <svg id="arena-stats-svg" viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+                <!-- FOND CLIQUABLE NORMAL (SANS DÉBORDEMENT) -->
+                <rect class="missed-zone full-bg" x="0" y="0" width="400" height="250" fill="#1a2634"></rect>
+                
+                <!-- BUT (50-250 en Y, 75% de largeur) -->
+                <!-- ZONE HAUTE CLIQUABLE (au-dessus du but, pour impacts hauts) -->
+                <g id="goal-top-zone-stats" transform="translate(50, 50)">
+                  <rect x="0" y="-50" width="300" height="50" fill="rgba(0,0,0,0.3)" stroke="none" style="cursor: crosshair;"></rect>
+                </g>
+                
+                <g id="goal-group-stats" transform="translate(40, 40)">
+                  <!-- BUT RÉGLEMENTAIRE (300x200 soit ratio 3/2) -->
+                  <rect x="10" y="10" width="300" height="200" fill="#1a2634" stroke="#334" stroke-width="1"></rect>
+                  <path d="M10 10 L310 210 M310 10 L10 210" stroke="#334" stroke-width="1" opacity="0.5"></path>
+                  
+                  <!-- Bande "Hors-Cadre" (U-Shape) -->
+                  <path id="missed-zone-left-stats" class="missed-zone" d="M0 0 L10 0 L10 210 L0 210 Z"></path>
+                  <path id="missed-zone-top-stats" class="missed-zone" d="M0 0 L320 0 L320 10 L0 10 Z"></path>
+                  <path id="missed-zone-right-stats" class="missed-zone" d="M310 0 L320 0 L320 210 L310 210 Z"></path>
 
-  
- 
- 
- 
-     <rect x="0" y="0" width="10" height="220" fill="#eee"></rect>
-            <rect x="0" y="20" width="10" height="20" fill="#d32f2f"></rect>
-            <rect x="0" y="60" width="10" height="20" fill="#d32f2f"></rect>
-            <rect x="0" y="100" width="10" height="20" fill="#d32f2f"></rect>
-            <rect x="0" y="140" width="10" height="20" fill="#d32f2f"></rect>
-            <rect x="0" y="180" width="10" height="20" fill="#d32f2f"></rect>
-   
-  
- 
- 
- 
- 
-         <rect x="310" y="0" width="10" height="220" fill="#eee"></rect>
-            <rect x="310" y="20" width="10" height="20" fill="#d32f2f"></rect>
-            <rect x="310" y="60" width="10" height="20" fill="#d32f2f"></rect>
-            <rect x="310" y="100" width="10" height="20" fill="#d32f2f"></rect>
-            <rect x="310" y="140" width="10" height="20" fill="#d32f2f"></rect>
-            <rect 
-x="310" 
-y="180" width="10" 
- height="20" 
- 
- 
-fill="#d32f2f"></rect>
-  
-            <rect x="0" y="0" width="320" height="10" fill="#eee"></rect>
-            <rect x="20" y="0" width="20" height="10" fill="#d32f2f"></rect>
-            <rect x="60" y="0" width="20" height="10" fill="#d32f2f"></rect>
-            <rect x="100" y="0" width="20" height="10" fill="#d32f2f"></rect>
-            <rect x="140" y="0" width="20" height="10" fill="#d32f2f"></rect>
-      
-  
-   
-   <rect 
- 
- 
-x="180" y="0" width="20" 
- height="10" fill="#d32f2f"></rect>
-             <rect x="220" y="0" width="20" height="10" fill="#d32f2f"></rect>
-            <rect x="260" y="0" width="20" height="10" fill="#d32f2f"></rect>
-            <rect x="300" y="0" width="20" height="10" fill="#d32f2f"></rect>
-          </svg>
-          <div id="stat-impacts-container"></div>
-         </div>
-   
-  
-    
-  <div class="court-container">
-  
-  
- 
-    
-    <svg id="court-stats-svg" viewBox="0 0 400 600" xmlns="http://www.w3.org/2000/svg">
-            <rect x="0" y="0" width="400" height="600" fill="#1a3a52"></rect>
-            <line x1="20" y1="40" x2="380" y2="40" stroke="#fff" stroke-width="4"></line>
-            <line x1="20" y1="40" x2="20" y2="560" stroke="#fff" stroke-width="4"></line>
-            <line x1="380" y1="40" x2="380" y2="560" stroke="#fff" stroke-width="4"></line>
-  
-  
-     
-     <rect 
- x="140" y="30" 
- 
-width="120" height="60" fill="none" stroke="#ff6f63" stroke-width="3"></rect>
- 
-            <path d="M 60 40 Q 60 180 200 180 Q 340 180 340 40" fill="none" stroke="#fff" stroke-width="4" style="pointer-events: none;"></path>
-            <path d="M 20 40 Q 20 220 200 220 Q 380 220 380 40" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="8 8" opacity="0.6"></path>
-            <line x1="20" y1="560" x2="380" y2="560" stroke="#fff" 
- stroke-width="4"></line>
- 
-      
-      <circle 
- cx="200" cy="200" r="4" 
- 
-fill="#fff"></circle>
-      
-       <g id="stat-zones-layer">
-               <path id="sz-pen" class="zone-shape" onclick="toggleStatZone('z-pen')" d="M 60,40 L 340,40 Q 340,180 200,180 Q 60,180 60,40 Z"></path>
-               <path id="sz-6-9-ail-g" class="zone-shape" onclick="toggleStatZone('z-6-9-ail-g')" d="M 20,40 L 60,40 Q 60,80 65,110 L 20,110 Z"></path>
-          
-  
-    <path id="sz-6-9-arr-g" class="zone-shape" 
- onclick="toggleStatZone('z-6-9-arr-g')" d="M 65,110 Q 80,150 130,170 L 
- 110,215 Q 50,190 25,110 
- 
-L 65,110 Z"></path>
-     
-           <path id="sz-6-9-pivot" class="zone-shape" onclick="toggleStatZone('z-6-9-pivot')" d="M 130,170 Q 200,180 270,170 L 290,215 Q 200,230 110,215 Z"></path>
-               <path id="sz-6-9-arr-d" class="zone-shape" onclick="toggleStatZone('z-6-9-arr-d')" d="M 335,110 Q 320,150 270,170 L 290,215 Q 350,190 375,110 L 335,110 Z"></path>
-               
-<path 
-id="sz-6-9-ail-d" class="zone-shape" onclick="toggleStatZone('z-6-9-ail-d')" d="M 340,40 L 380,40 L 
- 380,110 L 335,110 Q 340,80 340,40 Z"></path>
-  
-      
- 
-        
- <path id="sz-9-12-g" class="zone-shape" onclick="toggleStatZone('z-9-12-g')" d="M 20,110 L 25,110 Q 50,190 110,215 L 100,320 L 20,320 Z"></path>
-               <path id="sz-9-12-c" class="zone-shape" onclick="toggleStatZone('z-9-12-c')" d="M 110,215 Q 200,230 290,215 L 300,320 L 100,320 Z"></path>
-               <path id="sz-9-12-d" class="zone-shape" onclick="toggleStatZone('z-9-12-d')" d="M 290,215 Q 350,190 
-375,110 
-L 380,110 L 380,320 L 300,320 Z"></path>
-   
-          
-    <path id="sz-long" class="zone-shape" 
- 
-onclick="toggleStatZone('z-long')" d="M 20,320 L 380,320 L 380,560 L 20,560 
- Z"></path>
-              </g>
-           <g font-family="Arial" text-anchor="middle">
-                <text id="txt-z-pen" x="200" y="120" class="zone-stat-label"></text>
-               
-  
-<text id="txt-z-6-9-ail-g" x="40" y="90" class="zone-stat-label"></text>
-      
-           
- <text id="txt-z-6-9-arr-g" x="80" y="160" class="zone-stat-label"></text>
-   
- 
-          
-    <text id="txt-z-6-9-pivot" x="200" y="190" class="zone-stat-label"></text>
-                <text id="txt-z-6-9-arr-d" x="320" y="160" class="zone-stat-label"></text>
-                <text id="txt-z-6-9-ail-d" x="360" y="90" class="zone-stat-label"></text>
-           
-  
-    <text id="txt-z-9-12-g" x="60" y="280" class="zone-stat-label"></text>
-   
+                  <!-- Poteaux et barre masqués visuellement (hors viewBox) mais conservés pour la structure -->
+                  <rect x="0" y="0" width="10" height="210" fill="#eee" stroke="#ccc"></rect>
+                  <rect x="0" y="20" width="10" height="20" fill="#d32f2f"></rect>
+                  <rect x="0" y="60" width="10" height="20" fill="#d32f2f"></rect>
+                  <rect x="0" y="100" width="10" height="20" fill="#d32f2f"></rect>
+                  <rect x="0" y="140" width="10" height="20" fill="#d32f2f"></rect>
+                  <rect x="0" y="180" width="10" height="20" fill="#d32f2f"></rect>
+                  <rect x="310" y="0" width="10" height="210" fill="#eee" stroke="#ccc"></rect>
+                  <rect x="310" y="20" width="10" height="20" fill="#d32f2f"></rect>
+                  <rect x="310" y="60" width="10" height="20" fill="#d32f2f"></rect>
+                  <rect x="310" y="100" width="10" height="20" fill="#d32f2f"></rect>
+                  <rect x="310" y="140" width="10" height="20" fill="#d32f2f"></rect>
+                  <rect x="310" y="180" width="10" height="20" fill="#d32f2f"></rect>
+                  <rect x="0" y="0" width="320" height="10" fill="#eee" stroke="#ccc"></rect>
+                  <rect x="20" y="0" width="20" height="10" fill="#d32f2f"></rect>
+                  <rect x="60" y="0" width="20" height="10" fill="#d32f2f"></rect>
+                  <rect x="100" y="0" width="20" height="10" fill="#d32f2f"></rect>
+                  <rect x="140" y="0" width="20" height="10" fill="#d32f2f"></rect>
+                  <rect x="180" y="0" width="20" height="10" fill="#d32f2f"></rect>
+                  <rect x="220" y="0" width="20" height="10" fill="#d32f2f"></rect>
+                  <rect x="260" y="0" width="20" height="10" fill="#d32f2f"></rect>
+                  <rect x="300" y="0" width="20" height="10" fill="#d32f2f"></rect>
+                </g>
+              </svg>
+              <!-- Conteneur pour les impacts (position absolue) -->
+              <div id="stat-impacts-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;"></div>
+            </div>
             
-   <text id="txt-z-9-12-c" x="200" y="270" class="zone-stat-label"></text>
-  
- 
-           
-    <text id="txt-z-9-12-d" x="340" y="280" class="zone-stat-label"></text>
-                <text id="txt-z-long" x="200" y="450" class="zone-stat-label"></text>
-            </g>
-          </svg>
-     
-  
-  </div>
+            <!-- ZONE DE RENDU DU TERRAIN -->
+            <div class="court-render-zone">
+              <svg id="court-stats-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="400" height="400" fill="#1a3a52"></rect>
+                <line x1="20" y1="40" x2="380" y2="40" stroke="#fff" stroke-width="4"></line>
+                <line x1="20" y1="40" x2="20" y2="400" stroke="#fff" stroke-width="4"></line>
+                <line x1="380" y1="40" x2="380" y2="400" stroke="#fff" stroke-width="4"></line>
+                <rect x="140" y="30" width="120" height="60" fill="none" stroke="#ff6f63" stroke-width="3"></rect>
+                <path d="M 60 40 Q 60 180 200 180 Q 340 180 340 40" fill="none" stroke="#fff" stroke-width="4" style="pointer-events: none;"></path>
+                <path d="M 20 40 Q 20 220 200 220 Q 380 220 380 40" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="8 8" opacity="0.6" style="pointer-events: none;"></path>
+                <line x1="20" y1="400" x2="380" y2="400" stroke="#fff" stroke-width="4"></line>
+                <circle cx="200" cy="200" r="4" fill="#fff" style="pointer-events: none;"></circle>
+                
+                <!-- Zones tactiques avec ID spécifiques pour les stats -->
+                <path id="sz-pen" class="zone-shape" onclick="toggleStatZone('z-pen')" d="M 60,40 L 340,40 Q 340,180 200,180 Q 60,180 60,40 Z"></path>
+                <text x="200" y="124" font-size="10" text-anchor="middle" fill="#fff" font-weight="800" style="pointer-events:none;text-shadow:0 1px 2px #000;">7m</text>
+                <path id="sz-6-9-ail-g" class="zone-shape" onclick="toggleStatZone('z-6-9-ail-g')" d="M 20,40 L 60,40 Q 60,80 65,110 L 20,110 Z"></path>
+                <path id="sz-6-9-arr-g" class="zone-shape" onclick="toggleStatZone('z-6-9-arr-g')" d="M 65,110 Q 80,150 130,170 L 110,215 Q 50,190 25,110 L 65,110 Z"></path>
+                <path id="sz-6-9-pivot" class="zone-shape" onclick="toggleStatZone('z-6-9-pivot')" d="M 130,170 Q 200,180 270,170 L 290,215 Q 200,230 110,215 Z"></path>
+                <path id="sz-6-9-arr-d" class="zone-shape" onclick="toggleStatZone('z-6-9-arr-d')" d="M 335,110 Q 320,150 270,170 L 290,215 Q 350,190 375,110 L 335,110 Z"></path>
+                <path id="sz-6-9-ail-d" class="zone-shape" onclick="toggleStatZone('z-6-9-ail-d')" d="M 340,40 L 380,40 L 380,110 L 335,110 Q 340,80 340,40 Z"></path>
+                <path id="sz-9-12-g" class="zone-shape" onclick="toggleStatZone('z-9-12-g')" d="M 20,110 L 25,110 Q 50,190 110,215 L 100,320 L 20,320 Z"></path>
+                <path id="sz-9-12-c" class="zone-shape" onclick="toggleStatZone('z-9-12-c')" d="M 110,215 Q 200,230 290,215 L 300,320 L 100,320 Z"></path>
+                <path id="sz-9-12-d" class="zone-shape" onclick="toggleStatZone('z-9-12-d')" d="M 290,215 Q 350,190 375,110 L 380,110 L 380,320 L 300,320 Z"></path>
+                <path id="sz-long" class="zone-shape" onclick="toggleStatZone('z-long')" d="M 20,320 L 380,320 L 380,400 L 20,400 Z"></path>
+                
+                <!-- Labels pour les statistiques -->
+                <g font-family="Arial" text-anchor="middle">
+                  <text id="txt-z-pen" x="200" y="120" class="zone-stat-label"></text>
+                  <text id="txt-z-6-9-ail-g" x="40" y="90" class="zone-stat-label"></text>
+                  <text id="txt-z-6-9-arr-g" x="80" y="160" class="zone-stat-label"></text>
+                  <text id="txt-z-6-9-pivot" x="200" y="190" class="zone-stat-label"></text>
+                  <text id="txt-z-6-9-arr-d" x="320" y="160" class="zone-stat-label"></text>
+                  <text id="txt-z-6-9-ail-d" x="360" y="90" class="zone-stat-label"></text>
+                  <text id="txt-z-9-12-g" x="60" y="280" class="zone-stat-label"></text>
+                  <text id="txt-z-9-12-c" x="200" y="270" class="zone-stat-label"></text>
+                  <text id="txt-z-9-12-d" x="340" y="280" class="zone-stat-label"></text>
+                  <text id="txt-z-long" x="200" y="450" class="zone-stat-label"></text>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
       </div>
 
-    
-   <div class="player-col">
-         
- <div class="team-name-title" id="stat-lbl-vis">Visiteurs</div>
-       
- 
-  <div id="stat-right-col"></div>
+      <div class="player-col">
+        <div class="team-name-title" id="stat-lbl-vis">Visiteurs</div>
+        <div id="stat-right-col"></div>
       </div>
-   
-  </div>
+    </div>
   </div>
 
   <div id="page-defense" class="page-view">
@@ -1280,5 +1195,106 @@ id="journal-header-vis">Visiteurs</div>
   <script src="src/ui/views/journal-view.js" charset="utf-8"></script>
   <script src="src/ui/views/config-view.js" charset="utf-8"></script>
   
+  <script src="src/debug-audit.js" charset="utf-8"></script>
+  
+  <script>
+  // Ajouter le gestionnaire d'événement pour le SVG des stats
+  document.addEventListener('DOMContentLoaded', function() {
+    const statsSvg = document.getElementById('arena-stats-svg');
+    if (statsSvg) {
+        statsSvg.onclick = function(evt) {
+            // DEBUG: Afficher les dimensions
+            console.log('Stats SVG click - dimensions:', {
+                svgWidth: this.clientWidth,
+                svgHeight: this.clientHeight,
+                svgRect: this.getBoundingClientRect(),
+                viewBox: this.viewBox.baseVal
+            });
+            
+            // Récupérer les dimensions du SVG
+            const svgRect = this.getBoundingClientRect();
+            const viewBoxWidth = 400;
+            const viewBoxHeight = 820;
+            
+            // Coordonnées dans le viewBox complet
+            const xLogFull = (evt.clientX - svgRect.left) / svgRect.width * viewBoxWidth;
+            const yLogFull = (evt.clientY - svgRect.top) / svgRect.height * viewBoxHeight;
+            
+            console.log('Stats click - raw coords:', { 
+                clientX: evt.clientX, 
+                clientY: evt.clientY,
+                svgLeft: svgRect.left,
+                svgTop: svgRect.top,
+                xLogFull, 
+                yLogFull 
+            });
+            
+            // Vérifier si le clic est dans la zone du but (Y < 220)
+            if (yLogFull > 220) {
+                // Clic dans le terrain, ignorer
+                return;
+            }
+            
+            // Convertir les coordonnées du but (viewBox 320x220)
+            // Le but est positionné à x=10, y=10 dans le viewBox 400x820
+            const goalX = xLogFull - 10; // Décalage horizontal
+            const goalY = yLogFull - 10; // Décalage vertical
+            
+            // Limiter aux dimensions du but (300x210)
+            const xLog = Math.max(0, Math.min(300, goalX));
+            const yLog = Math.max(0, Math.min(210, goalY));
+            
+            // Calculer les coordonnées visuelles pour le marqueur
+            const container = this.closest('.court-wrap');
+            const containerRect = container ? container.getBoundingClientRect() : svgRect;
+            const visX = evt.clientX - containerRect.left;
+            const visY = evt.clientY - containerRect.top;
+            
+            // Calculer les pourcentages pour le stockage
+            const impact_x = (xLog / 300 * 100);
+            const impact_y = (yLog / 210 * 100);
+            
+            // Utiliser les fonctions utilitaires avec les coordonnées du but
+            const isFrame = window.isFrameShot ? window.isFrameShot(xLog, yLog) : false;
+            const but_zone = window.getShotZone ? window.getShotZone(xLog, yLog) : null;
+            
+            // Mettre à jour currentShot avec les coordonnées
+            if (window.currentShot) {
+                window.currentShot.impact_x = impact_x;
+                window.currentShot.impact_y = impact_y;
+                window.currentShot.isFrame = isFrame;
+                window.currentShot.but_zone = but_zone;
+            }
+            
+            // Afficher un marqueur temporaire (optionnel)
+            const marker = document.createElement('div');
+            marker.className = 'impact-marker impact-gold';
+            marker.style.position = 'absolute';
+            marker.style.left = visX + 'px';
+            marker.style.top = visY + 'px';
+            marker.style.width = '10px';
+            marker.style.height = '10px';
+            marker.style.borderRadius = '50%';
+            marker.style.background = '#f1c40f';
+            marker.style.transform = 'translate(-50%, -50%)';
+            marker.style.pointerEvents = 'none';
+            marker.style.boxShadow = '0 0 5px rgba(0,0,0,0.5)';
+            marker.style.border = '1px solid #fff';
+            marker.style.zIndex = '1000';
+            
+            const containerEl = this.closest('.court-wrap') || this.parentElement;
+            containerEl.style.position = 'relative';
+            containerEl.appendChild(marker);
+            
+            // Supprimer le marqueur après 2 secondes
+            setTimeout(() => {
+                if (marker.parentElement) marker.parentElement.removeChild(marker);
+            }, 2000);
+            
+            console.log('Clic stats:', { xLog, yLog, impact_x, impact_y, but_zone, isFrame, visX, visY });
+        };
+    }
+  });
+  </script>
 </body>
 </html>
