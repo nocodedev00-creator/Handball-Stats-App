@@ -22,12 +22,13 @@
   .nav-btn.active { outline:2px solid rgba(241,196,15,0.18); background:rgba(255,255,255,0.02); color: var(--gold);
  }
   .page-view { flex: 1; display: none; flex-direction: column; align-items: center; padding: 2px; gap: 2px; width: 100%; box-sizing: border-box;
- overflow-y: auto; }
+ overflow: hidden; /* La page elle-même ne doit pas scroller */
+ height: 100%; }
   .page-view.active-view { display: flex; }
   .header{width:100%;max-width:900px;display:flex;justify-content:flex-end;align-items:center;padding:4px; gap:5px; flex-shrink: 0; flex-wrap: wrap;
  transition: background 0.3s;}
   .match-header-compact { width: 100%; max-width: 900px; display: flex; justify-content: space-between; align-items: stretch; background: #0d2a3d; padding: 4px;
- gap: 4px; border-bottom: 2px solid var(--muted); flex-shrink: 0; height: 65px; }
+ gap: 4px; border-bottom: 2px solid var(--muted); flex: 0 0 auto; height: 65px; }
   .header-grp-left { display: flex; flex-direction: column; gap: 2px;
  width: 60px; justify-content: space-between; }
   .header-grp-center { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(0,0,0,0.2);
@@ -65,12 +66,11 @@
 
   .main-row{ width:100%; max-width:900px;
  display:grid; grid-template-columns:70px 1fr 70px; gap:2px; align-items:stretch; flex: 1;
- min-height: 0; overflow-y: auto; }
+ min-height: 0; overflow: hidden; }
   .player-col{ display:flex; flex-direction:column; gap:1px; align-items:stretch;
- padding:0 1px; height: 100%; overflow-y: auto; overflow-x: hidden;
- -webkit-overflow-scrolling: touch; }
+ padding:0 1px; height: 100%; overflow: hidden; }
   .court-wrap{ position:relative; width:100%; background:linear-gradient(180deg,#091726,#0d2a3d); border-radius:8px; padding:2px; box-sizing:border-box; display:flex;
- flex-direction:column; align-items:center; justify-content: space-between; height: 100%; overflow-y: auto;
+ flex-direction:column; align-items:center; justify-content: space-between; height: 100%; overflow: hidden;
  }
   .team-name-title { text-align: center; font-size: 10px; font-weight: 700; margin-bottom: 2px;
  color: var(--muted); text-transform: uppercase; white-space: nowrap; overflow: hidden;
@@ -166,7 +166,7 @@
 
   /* ================= CSS BUTTONS & LEGEND CORRIGÉ ================= */
   .buttons-container { width:100%; max-width:900px; display: flex; flex-direction: column;
-    gap: 6px; padding: 4px; flex-shrink: 0; z-index: 5;
+    gap: 6px; padding: 4px; flex: 0 0 auto; z-index: 5;
     background: var(--bg); margin-top: auto; }
   
   .btn-row { display: flex; gap: 4px; width: 100%; }
