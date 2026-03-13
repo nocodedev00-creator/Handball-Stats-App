@@ -628,13 +628,13 @@ class="btn-mini-action" onclick="resetMatch()">🔄</button>
           <div class="strict-canvas">
             <!-- ZONE DE CAPTURE DU BUT (BORDURE ROUGE) -->
             <div class="goal-capture-zone" id="impact-board-match">
-              <svg id="arena-svg" viewBox="0 -40 400 220" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+              <svg id="arena-svg" viewBox="20 -30 360 240" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
                 <!-- FOND CLIQUABLE NORMAL (SANS DÉBORDEMENT) -->
-                <rect class="missed-zone full-bg" x="0" y="-40" width="400" height="260" fill="#1a2634" onclick="setMissedShot()"></rect>
+                <rect class="missed-zone full-bg" x="0" y="-30" width="400" height="250" fill="#1a2634" onclick="setMissedShot()"></rect>
                 
                 <!-- BUT (0-220 en Y, 75% de largeur) -->
                 <!-- ZONE HAUTE CLIQUABLE (au-dessus du but, pour impacts hauts) -->
-                <g id="goal-top-zone" transform="translate(50, 0)">
+                <g id="goal-top-zone" transform="translate(40, 0)">
                   <rect x="0" y="-15" width="320" height="15" fill="rgba(0,0,0,0.3)" stroke="none" style="cursor: crosshair;" onclick="setMissedShot()"></rect>
                 </g>
                 
@@ -678,8 +678,8 @@ class="btn-mini-action" onclick="resetMatch()">🔄</button>
             
             <!-- ZONE DE RENDU DU TERRAIN -->
             <div class="court-render-zone">
-              <svg id="court-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-                <rect x="0" y="0" width="400" height="400" fill="#1a3a52"></rect>
+              <svg id="court-svg" viewBox="20 40 360 360" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+                <rect x="0" y="40" width="400" height="360" fill="#1a3a52"></rect>
                 <line x1="20" y1="40" x2="380" y2="40" stroke="#fff" stroke-width="4"></line>
                 <line x1="20" y1="40" x2="20" y2="400" stroke="#fff" stroke-width="4"></line>
                 <line x1="380" y1="40" x2="380" y2="400" stroke="#fff" stroke-width="4"></line>
@@ -896,13 +896,13 @@ value="5" min="1">
           <div class="strict-canvas">
             <!-- ZONE DE CAPTURE DU BUT (BORDURE VERTE) -->
             <div class="goal-capture-zone" id="impact-board-stats">
-              <svg id="arena-stats-svg" viewBox="0 -40 400 220" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+              <svg id="arena-stats-svg" viewBox="20 -30 360 240" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
                 <!-- FOND CLIQUABLE NORMAL (SANS DÉBORDEMENT) -->
-                <rect class="missed-zone full-bg" x="0" y="-40" width="400" height="260" fill="#1a2634"></rect>
+                <rect class="missed-zone full-bg" x="0" y="-30" width="400" height="250" fill="#1a2634"></rect>
                 
                 <!-- BUT (0-220 en Y, 75% de largeur) -->
                 <!-- ZONE HAUTE CLIQUABLE (au-dessus du but, pour impacts hauts) -->
-                <g id="goal-top-zone-stats" transform="translate(50, 0)">
+                <g id="goal-top-zone-stats" transform="translate(40, 0)">
                   <rect x="0" y="-15" width="320" height="15" fill="rgba(0,0,0,0.3)" stroke="none" style="cursor: crosshair;"></rect>
                 </g>
                 
@@ -946,8 +946,8 @@ value="5" min="1">
             
             <!-- ZONE DE RENDU DU TERRAIN -->
             <div class="court-render-zone">
-              <svg id="court-stats-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-                <rect x="0" y="0" width="400" height="400" fill="#1a3a52"></rect>
+              <svg id="court-stats-svg" viewBox="20 40 360 360" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="40" width="400" height="360" fill="#1a3a52"></rect>
                 <line x1="20" y1="40" x2="380" y2="40" stroke="#fff" stroke-width="4"></line>
                 <line x1="20" y1="40" x2="20" y2="400" stroke="#fff" stroke-width="4"></line>
                 <line x1="380" y1="40" x2="380" y2="400" stroke="#fff" stroke-width="4"></line>
@@ -1015,7 +1015,7 @@ value="5" min="1">
          <div id="def-legend-container" style="display:flex;
  justify-content:center; gap:10px; margin-bottom:5px; flex-wrap:wrap; width:100%;"></div>
          <div class="court-container" style="flex: 0 0 auto;
- height: auto; aspect-ratio: 400/600; width: 100%;"> <svg id="court-defense-svg" viewBox="0 0 400 600" xmlns="http://www.w3.org/2000/svg">
+ height: auto; aspect-ratio: 360/600; width: 100%;"> <svg id="court-defense-svg" viewBox="20 0 360 600" xmlns="http://www.w3.org/2000/svg">
             <rect x="0" y="0" width="400" height="600" fill="#1a3a52"></rect>
             <line x1="20" y1="40" x2="380" y2="40" stroke="#fff" stroke-width="4"></line>
           
@@ -1213,7 +1213,7 @@ id="journal-header-vis">Visiteurs</div>
             
             // Récupérer les dimensions du SVG
             const svgRect = this.getBoundingClientRect();
-            const viewBoxWidth = 400;
+            const viewBoxWidth = 360;
             const viewBoxHeight = 820;
             
             // Coordonnées dans le viewBox complet
