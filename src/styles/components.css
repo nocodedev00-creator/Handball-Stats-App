@@ -1,0 +1,121 @@
+/* Styles des composants et impacts SVG */
+.impact-svg-dot {
+    stroke: #ffffff;
+    stroke-width: 1px;
+}
+.impact-but { fill: #2ecc71; }
+.impact-arrêt { fill: #e74c3c; }
+.impact-raté { fill: #95a5a6; }
+.impact-poteau { fill: #f1c40f; }
+.impact-hors-cadre { fill: #34495e; }
+
+/* ================= MINI-COURT (DASHBOARD) ================= */
+
+/* Conteneur parent du mini-court (But + Terrain) - Compatibilité Grid - UNIQUEMENT PAGE MATCH */
+#page-match #mini-court-wrap {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Ciblage du div qui contient le but et le terrain - Compatibilité Grid - UNIQUEMENT PAGE MATCH */
+#page-match #mini-court-wrap > div:last-child {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Conteneurs du mini-court - Compatibilité avec la grille CSS - UNIQUEMENT PAGE MATCH */
+#page-match #mini-goal-area {
+    width: 100% !important;
+    height: 100% !important;
+    position: relative !important;
+    display: block !important;
+    overflow: visible !important; /* Évite de couper les impacts */
+}
+
+#page-match #mini-court-area {
+    width: 100% !important;
+    height: 100% !important;
+    position: relative !important;
+    display: block !important;
+    overflow: visible !important;
+}
+
+/* SVGs du mini-court - Compatibilité avec la grille CSS - UNIQUEMENT PAGE MATCH */
+#page-match #mini-court-wrap svg {
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    object-fit: contain !important; /* Maintient le ratio d'aspect */
+    overflow: visible !important; /* Permet de voir les bords si la viewBox est serrée */
+}
+
+/* Adaptation mobile pour la grille CSS (largeur < 600px) - UNIQUEMENT PAGE MATCH */
+@media (max-width: 600px) {
+    /* Afficher le terrain sur mobile (au lieu de le cacher) */
+    #page-match #mini-court-area {
+        display: block !important; 
+    }
+    
+    /* Ajustement pour que le but et le terrain s'affichent correctement */
+    #page-match .mini-court-flex-container {
+        grid-template-rows: 40% 60% !important; /* But: 40%, Terrain: 60% */
+    }
+    
+    #page-match #mini-goal-area {
+        height: 100% !important;
+    }
+    
+    #page-match #mini-court-area {
+        height: 100% !important;
+    }
+}
+
+/* ================= RÈGLES SPÉCIFIQUES POUR LA PAGE TIRS (STATS) ================= */
+
+/* Restauration des ratios d'aspect corrects pour la page Tirs */
+#page-stats .goal-capture-zone {
+    aspect-ratio: 360 / 220 !important;
+    width: 100% !important;
+    display: block !important;
+    position: relative !important;
+    height: auto !important;
+    flex: 0 0 auto !important;
+    max-height: none !important;
+}
+
+#page-stats .court-render-zone {
+    aspect-ratio: 360 / 400 !important;
+    width: 100% !important;
+    display: block !important;
+    position: relative !important;
+    height: auto !important;
+    flex: 0 0 auto !important;
+    max-height: none !important;
+}
+
+/* Garantie que les SVGs de la page Tirs occupent 100% de leur conteneur */
+#page-stats .goal-capture-zone svg {
+    width: 100% !important; /* Symétrie Hors-Cadre appliquée aussi aux stats */
+    height: auto !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    display: block !important;
+    position: static !important;
+    margin: 0 auto !important;
+}
+
+#page-stats .court-render-zone svg {
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    position: static !important;
+}
+
+/* ================= BARRES DE STATS COMPARATIVES ================= */
+.comp-bars-container { display: flex; flex-direction: column; justify-content: space-between; height: 100%; width: 100%; padding: 2px; box-sizing: border-box; }
+.comp-bar-row { display: flex; align-items: center; gap: 4px; }
+.comp-bar-label { width: 45px; font-size: 8px; font-weight: bold; text-align: right; color: #98a3b3; white-space: nowrap; }
+.comp-bar-track { flex: 1; display: flex; flex-direction: column; gap: 1px; border-left: 1px solid rgba(255,255,255,0.2); padding-left: 2px; }
+.comp-bar-item { display: flex; align-items: center; gap: 2px; }
+.comp-bar-fill { height: 4px; border-radius: 2px; transition: width 0.3s; }
+.comp-bar-val { font-size: 8px; font-weight: bold; color: #fff; line-height: 1; }

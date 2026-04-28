@@ -1,0 +1,786 @@
+/* ============================================
+   layout.css - Layout principal et grilles
+   ============================================ */
+
+/* ================= LAYOUT PRINCIPAL ================= */
+
+.main-row {
+    width: 100%;
+    max-width: 900px;
+    display: grid;
+    grid-template-columns: 70px 1fr 70px;
+    gap: 2px;
+    align-items: stretch;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.player-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    align-items: stretch;
+    padding: 0 1px;
+    height: 100%;
+    overflow: hidden;
+}
+
+.team-name-title {
+    text-align: center;
+    font-size: 10px;
+    font-weight: 700;
+    margin-bottom: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ================= ARÈNE (TERRAIN + BUT) ================= */
+
+/* ================= SUPER-BLOC ARÈNE - MÉTHODE BULLETPROOF SVG ================= */
+
+.strict-canvas {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important; 
+    align-items: center !important;
+    gap: 0 !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 600px !important;
+    
+    /* FORCE LA HAUTEUR STRICTE BASÉE SUR LE VIEWPORT (HEADER/FOOTER ~160px) */
+    height: calc(100vh - 120px) !important; 
+    max-height: calc(100vh - 120px) !important;
+    
+    /* Évite le débordement de page et autorise le rétrécissement */
+    overflow: hidden !important; 
+}
+
+.goal-capture-zone {
+    position: relative !important;
+    width: 100% !important;
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+}
+
+.court-render-zone {
+    position: relative !important;
+    width: 100% !important;
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+}
+
+/* RESTAURATION DU FLUX POUR LES SVGs (FIN DE L'ABSOLUTE) */
+/* Cible explicite du SVG du but pour la Règle 6 (Symétrie Hors-Cadre) */
+.goal-capture-zone > svg,
+.goal-capture-zone svg#goal-svg,
+.goal-capture-zone svg#goal-stats-svg {
+    position: static !important;
+    max-height: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    width: 100% !important; /* Symétrie Hors-Cadre : largeur relative pour équilibrer les marges */
+    margin: 0 !important;
+    display: block !important;
+}
+
+.court-render-zone svg {
+    position: static !important;
+    max-height: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    width: auto !important;
+    margin: auto;
+    display: block !important;
+}
+
+/* DASHBOARD MINI-COURT TACTIQUE - RÉPARTITION STRICTE 40/60 */
+#mini-court-wrap {
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 2px;
+    box-sizing: border-box;
+    overflow: hidden !important;
+}
+
+/* Titre du mini-court (Dernier tireur) */
+#mini-court-title {
+    flex: 0 0 auto !important;
+    height: 12px !important;
+    margin-bottom: 2px !important;
+}
+
+/* Le conteneur parent du mini-court (qui empile les deux) */
+#mini-court-wrap > div:last-child {
+    display: flex !important;
+    flex-direction: column !important;
+    height: calc(100% - 15px) !important; /* Laisser la place au titre */
+    gap: 5px !important; /* Petit espace pour aérer */
+    overflow: hidden !important;
+}
+
+
+/* ================= OPTIMISATION MOBILE - ADAPTATION COMPLÈTE ================= */
+
+  /* Mobile portrait : adaptation totale à l'espace disponible */
+  @media (max-width: 768px) {
+      .strict-canvas {
+          flex: 1 1 auto;
+          min-height: 0;
+          width: 100%;
+          height: auto !important;
+          max-height: none !important;
+          overflow: hidden;
+      }
+      
+      /* Garantir que le mini-but conserve ses proportions sur mobile */
+      #mini-goal-area {
+          aspect-ratio: 360 / 220 !important;
+          min-height: 0 !important;
+          overflow: hidden !important;
+      }
+      
+      #mini-arena-svg {
+          width: 100% !important;
+          height: 100% !important;
+      }
+      
+      /* Garantir que le mini-terrain soit visible et proportionnel sur mobile */
+      #mini-court-area {
+          aspect-ratio: 360 / 360 !important;
+          min-height: 0 !important;
+          overflow: hidden !important;
+      }
+      
+      #mini-court-svg {
+          width: 100% !important;
+          height: 100% !important;
+      }
+      
+      /* Ajuster la grille pour mobile : 45% but, 55% terrain */
+      #page-match .mini-court-flex-container {
+          grid-template-rows: 45% 55% !important;
+      }
+  }
+
+/* Tablette portrait : optimisation intermédiaire */
+@media (max-width: 1024px) and (min-width: 769px) and (max-height: 1024px) {
+    .strict-canvas {
+        aspect-ratio: auto;
+        height: auto;
+        min-height: 300px;
+    }
+}
+
+/* ================= GARANTIES GÉNÉRALES DE NON-TRONCATURE ================= */
+
+.court-wrap {
+    min-height: 0 !important;
+    overflow: visible !important;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+}
+
+.arena-wrapper {
+    flex-grow: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: visible !important;
+    flex: 1 1 auto;
+    width: 100%;
+}
+
+/* ================= ANCIENS CONTENEURS (MAINTENUS POUR COMPATIBILITÉ) ================= */
+
+.goal-container {
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible !important;
+    margin: 0;
+    padding: 0;
+    height: auto;
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+.court-container {
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: visible !important;
+    margin: 0;
+    padding: 0;
+    height: auto;
+}
+
+/* ================= STYLES DES SVG ================= */
+
+#arena-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    box-sizing: border-box;
+}
+
+svg#goal-svg, svg#goal-stats-svg {
+    width: 100% !important; /* Symétrie Hors-Cadre : largeur relative pour équilibrer les marges */
+    height: auto !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    display: block;
+    background: rgba(255,255,255,0.05);
+    border-radius: 4px;
+    cursor: crosshair;
+    border: 1px solid rgba(255,255,255,0.1);
+    touch-action: none;
+}
+
+svg#court, svg#court-stats-svg, svg#court-defense-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* ================= ZONES ET MARQUEURS ================= */
+
+.missed-zone {
+    fill: rgba(0,0,0,0.3);
+    cursor: crosshair;
+    stroke: none;
+}
+
+.zone-shape {
+    cursor: pointer;
+    fill: transparent;
+    stroke: rgba(255, 255, 255, 0.3);
+    stroke-width: 1px;
+    stroke-dasharray: 4 4;
+    transition: all 0.2s;
+}
+
+.zone-shape:hover {
+    fill: rgba(255, 255, 255, 0.1);
+    stroke: #fff;
+    stroke-dasharray: 0;
+}
+
+.zone-shape.selected, .zone-shape.active-zone {
+    fill: rgba(241, 196, 15, 0.2);
+    stroke: #f1c40f;
+    stroke-width: 2px;
+    stroke-dasharray: 0;
+}
+
+.zone-stat-label {
+    font-size: 18px;
+    font-weight: 900;
+    fill: #fff;
+    text-anchor: middle;
+    pointer-events: none;
+    text-shadow: 0 1px 3px #000;
+}
+
+.impact-marker {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    border: 1px solid #fff;
+}
+
+.impact-gold { background: var(--gold); }
+.impact-green { background: var(--success); }
+.impact-blue { background: var(--blue); }
+.impact-red { background: var(--danger); }
+
+/* ================= CONTENEUR DES IMPACTS STATS ================= */
+
+#stat-impacts-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    pointer-events: none;
+}
+
+/* ================= GARANTIE DU RATIO 360/220 DANS LA VUE STATS ================= */
+#impact-board-stats.goal-capture-zone {
+    height: 35.48% !important;
+    aspect-ratio: 360 / 220 !important;
+    flex: 0 0 auto !important;
+    position: relative !important;
+}
+
+#impact-board-stats.goal-capture-zone > svg {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    display: block !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    transform: none !important;
+}
+
+/* ================= CORRECTION DES CONTENEURS PARENTS DANS LA VUE STATS ================= */
+#page-stats .court-wrap {
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    align-items: stretch !important;
+}
+
+#page-stats .strict-canvas {
+    aspect-ratio: 360 / 620 !important;
+    height: auto !important;
+    flex: 0 0 auto !important;
+}
+
+#page-stats .arena-wrapper {
+    min-height: 0 !important;
+    height: auto !important;
+}
+
+/* ================= RESPONSIVE MOBILE ================= */
+
+@media (max-width: 768px) {
+    .main-row {
+        grid-template-columns: 55px 1fr 55px;
+        gap: 1px;
+        overflow: hidden;
+    }
+    
+    .player-col {
+        justify-content: flex-start;
+    }
+    
+    .court-wrap {
+        padding: 0 2px;
+        justify-content: flex-end; 
+        gap: 2px;
+    }
+    
+    .goal-container {
+        flex: 0 0 35%;
+        height: auto;
+        margin-bottom: 1px;
+    }
+    
+    .court-container {
+        flex: 0 0 65%;
+        max-height: none;
+    }
+}
+
+/* ================= GARDIENS ET JOUEURS ================= */
+
+.gb-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    padding: 1px;
+    background: rgba(255,215,0,0.1);
+    border: 1px solid var(--gold);
+    border-radius: 4px;
+    margin-bottom: 2px;
+    flex-shrink: 0;
+}
+
+.gb-selector-title {
+    font-size: 9px;
+    text-align: center;
+    color: var(--gold);
+    font-weight: 700;
+}
+
+.gb-btn {
+    padding: 2px;
+    border-radius: 2px;
+    cursor: pointer;
+    border: 1px solid rgba(255,215,0,0.3);
+    background: rgba(255,215,0,0.05);
+    color: var(--gold);
+    font-weight: 700;
+    text-align: center;
+    transition: all 0.2s;
+    font-size: 11px;
+}
+
+.gb-btn.active-gb {
+    background: var(--gold);
+    color: #0f2436;
+    border-color: var(--gold);
+}
+
+@keyframes gb-no-selection-blink {
+    0%, 49% { border-color: #ff0000; background-color: rgba(255,0,0,0.35); box-shadow: 0 0 8px 2px rgba(255,0,0,0.5); }
+    50%, 100% { border-color: #ffffff; background-color: rgba(255,255,255,0.25); box-shadow: 0 0 12px 4px rgba(255,255,255,0.4); }
+}
+
+.gb-selector.gb-no-selection {
+    animation: gb-no-selection-blink 0.8s ease-in-out infinite;
+}
+
+.gb-selector.gb-no-selection .gb-selector-title {
+    color: #ffffff;
+    font-weight: bold;
+    text-shadow: 0 0 6px rgba(255,0,0,0.8);
+}
+
+.player-btn {
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 0px;
+    height: 36px;
+    flex-shrink: 0;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+    margin-bottom: 1px;
+}
+
+.player-btn.selected {
+    outline: 2px solid var(--gold);
+    z-index: 10;
+    border-color: var(--gold);
+}
+
+.player-stats-mini {
+    position: absolute;
+    top: 1px;
+    right: 2px;
+    font-size: 9px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.gb-label {
+    font-size: 8px;
+    color: #64b5f6;
+    font-weight: 800;
+    position: absolute;
+    top: 1px;
+    right: 2px;
+}
+
+.sus-timer {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    font-size: 9px;
+    background: var(--danger);
+    color: white;
+    padding: 1px 3px;
+    border-radius: 3px;
+    font-weight: 800;
+    animation: blinker 1s linear infinite;
+}
+
+.indicators {
+    position: absolute;
+    bottom: 2px;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+}
+
+.cards-group {
+    display: flex; gap: 1px;
+}
+
+.ind-card {
+    width: 5px; height: 8px; border-radius: 1px;
+}
+
+.ind-yellow { background: #f1c40f; }
+.ind-red { background: #e74c3c; }
+.ind-blue { background: #3498db; }
+
+.mins-group {
+    display: flex; gap: 1px;
+}
+
+.ind-dot {
+    width: 5px; height: 5px; border-radius: 50%; background: #e74c3c; border: 1px solid rgba(255,255,255,0.5);
+}
+
+.sanc-badge-container {
+    position: absolute;
+    top: 1px;
+    left: 2px;
+    display: flex;
+    align-items: center;
+    gap: 1px;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.sanc-badge {
+    display: inline-block;
+    width: 8px;
+    height: 10px;
+    border-radius: 1px;
+    border: 1px solid rgba(255,255,255,0.5);
+}
+
+.sanc-badge-red { background: #e74c3c; }
+.sanc-badge-blue { background: #3498db; }
+.sanc-badge-yellow { background: #f1c40f; }
+
+.sanc-dot {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #e74c3c;
+    border: 1px solid rgba(255,255,255,0.5);
+}
+
+.def-indicator {
+    position: absolute; right: 2px; top: 50%; transform: translateY(-50%); font-size: 12px; pointer-events: none;
+}
+
+.player-name-mini {
+    font-size: 9px; width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; margin-top: 2px; font-weight: normal; color: rgba(255,255,255,0.7); line-height: 1;
+}
+
+/* ================= SCORE ET TIMER ================= */
+
+.center-score {
+    font-size: 16px; font-weight: 800; color: var(--white); margin-bottom: 1px; background: rgba(0,0,0,0.3); padding: 2px 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); flex-shrink: 0;
+}
+
+.center-score span {
+    color: var(--gold);
+}
+
+/* ================= BOUTONS ET CONTROLES ================= */
+
+.buttons-container {
+    width: 100%; max-width: 900px; display: flex; flex-direction: column; gap: 6px; padding: 4px; flex: 0 0 auto; z-index: 5; background: var(--bg); margin-top: auto;
+}
+
+.btn-row {
+    display: flex; gap: 4px; width: 100%;
+}
+
+.mixed-row {
+    justify-content: space-between; align-items: stretch;
+}
+
+.game-btn {
+    border-radius: 6px; border: none; font-weight: 700; font-size: 13px; cursor: pointer; color: var(--white); transition: all 0.2s; display: flex; justify-content: center; align-items: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; height: 44px; padding: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.btn-tm, .btn-sanc, .btn-pdb, .btn-def-err, .btn-qualifier {
+    width: 70px; flex: none; font-size: 11px;
+}
+
+.btn-tm {
+    color: #000; font-weight: 800; border: 1px solid rgba(0,0,0,0.2); height: 36px;
+}
+
+.grp-sanc {
+    display: flex; gap: 4px;
+}
+
+.grp-evt {
+    display: flex; gap: 4px;
+}
+
+.btn-sanc {
+    background: #cfd8dc; color: #2c3e50; border: 1px solid #b0bec5; font-size: 14px;
+}
+
+.sanc-icon {
+    width: 14px; height: 14px; border-radius: 2px; display: inline-block;
+}
+
+.icon-y { background: #f1c40f; }
+.icon-r { background: #e74c3c; }
+
+.btn-pdb { background: var(--orange); color: #0f2436; }
+.btn-def-err { background: #9b59b6; }
+
+.action-row {
+    display: flex; gap: 4px; width: 100%;
+}
+
+.btn-qualifier {
+    background: #37474f; color: #eceff1; border: 1px solid rgba(255,255,255,0.1);
+}
+
+.btn-qualifier.active-qual {
+    background: #546e7a; border: 1px solid #fff; box-shadow: 0 0 5px rgba(255,255,255,0.5); font-weight: bold;
+}
+
+.btn-but { background: #27ae60; flex: 2; font-size: 15px; }
+.btn-arret { background: #3498db; flex: 2; font-size: 15px; }
+.btn-rate { background: #e74c3c; flex: 2; font-size: 15px; }
+
+@media (max-width: 768px) {
+    .btn-tm, .btn-sanc, .btn-pdb, .btn-def-err, .btn-qualifier {
+        width: 55px; font-size: 10px;
+    }
+    
+    .player-btn {
+        height: 38px; font-size: 11px; margin-bottom: 1px; flex-shrink: 1;
+    }
+    
+    .gb-selector {
+        margin-bottom: 1px;
+    }
+    
+    .gb-btn {
+        padding: 4px;
+    }
+    
+    .center-score {
+        padding: 1px 4px; font-size: 14px; margin-bottom: 1px;
+    }
+    
+    .buttons-container {
+        gap: 2px; padding: 2px;
+    }
+    
+    .game-btn {
+        padding: 10px 0; font-size: 12px;
+    }
+    
+    .btn-tm {
+        width: 55px; font-size: 10px; padding: 10px 0;
+    }
+}
+
+/* ================= NOUVEAUX STYLES POUR LA REFONTE ERGONOMIQUE ================= */
+
+.action-bar-fullwidth {
+    display: flex; width: 100%; max-width: 900px; gap: 4px; padding: 4px; box-sizing: border-box; background: var(--bg); flex-shrink: 0; z-index: 5;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.action-bar-fullwidth .game-btn {
+    flex: 1 1 auto; min-width: 0; height: 44px; font-size: 13px;
+}
+
+.players-list-scrollable {
+    flex-grow: 1; overflow-y: auto; min-height: 0;
+}
+
+.btn-tm-bottom {
+    margin-top: auto; flex-shrink: 0; width: 100%; height: 36px; font-size: 11px; color: #000; font-weight: 800; border: 1px solid rgba(0,0,0,0.2); background: #cfd8dc;
+}
+
+.court-wrap {
+    position: relative; width: 100%; background: linear-gradient(180deg, #091726, #0d2a3d); border-radius: 8px; padding: 1px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; height: 100%; overflow: hidden;
+}
+
+.future-extension-zone {
+    flex-shrink: 0; min-height: 80px; max-height: 120px; background: white; color: black; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-bottom: 5px; border-radius: 4px; width: 100%; box-sizing: border-box; text-align: center; padding: 10px; overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .action-bar-fullwidth {
+        gap: 2px; padding: 2px;
+    }
+    
+    .action-bar-fullwidth .game-btn {
+        height: 40px; font-size: 12px;
+    }
+    
+    .btn-tm-bottom {
+        height: 38px; font-size: 10px;
+    }
+    
+    .future-extension-zone {
+        min-height: 80px; margin-bottom: 5px; font-size: 14px;
+    }
+}
+
+/* ================= STYLES POUR LES IMPACTS SVG NATIFS ================= */
+.impact-svg-dot {
+    fill: #3498db; stroke: white; stroke-width: 1.5px;
+}
+
+.impact-svg-dot.impact-green {
+    fill: #2ecc71;
+}
+
+.impact-svg-dot.impact-blue {
+    fill: #3498db;
+}
+
+.impact-svg-dot.impact-red {
+    fill: #e74c3c;
+}
+
+/* 1. On transforme le conteneur existant en Grille stricte (40% Haut / 60% Bas) - UNIQUEMENT PAGE MATCH */
+#page-match .mini-court-flex-container {
+    display: grid !important;
+    grid-template-rows: 40% 60% !important;
+    width: 100% !important;
+    height: calc(100% - 20px) !important; /* Laisse la place au titre */
+    gap: 0px !important;
+    overflow: hidden !important;
+}
+
+/* 2. Les cases de la grille deviennent des cellules de confinement - UNIQUEMENT PAGE MATCH */
+#page-match #mini-goal-area,
+#page-match #mini-court-area {
+    width: 100% !important;
+    height: 100% !important;
+    position: relative !important; /* Crucial pour bloquer l'absolute des enfants */
+    display: block !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* 3. Les SVGs épousent 100% de leur case de force - UNIQUEMENT PAGE MATCH */
+#page-match #mini-arena-svg,
+#page-match #mini-court-svg {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* ================= FIN DU FICHIER ================= */
