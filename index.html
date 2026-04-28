@@ -326,7 +326,7 @@
   .player-col{ display:flex; flex-direction:column; gap:1px; align-items:stretch;
  padding:0 1px; height: 100%; overflow: hidden; }
   .court-wrap{ position:relative; width:100%; background:linear-gradient(180deg,#091726,#0d2a3d); border-radius:8px; padding:2px; box-sizing:border-box; display:flex;
- flex-direction:column; align-items:center; justify-content: space-between; height: 100%; overflow: hidden;
+ flex-direction:column; align-items:center; justify-content: flex-start; height: 100%; overflow: hidden;
  }
   .team-name-title { text-align: center; font-size: 10px; font-weight: 700; margin-bottom: 2px;
  color: var(--muted); text-transform: uppercase; white-space: nowrap; overflow: hidden;
@@ -380,14 +380,14 @@
   .ind-dot { width: 5px; height: 5px; border-radius: 50%; background: #e74c3c;
  border: 1px solid rgba(255,255,255,0.5);
  }
- .def-indicator { position:absolute;
+  .def-indicator { position:absolute;
  right:2px; top:50%; transform:translateY(-50%);
  font-size:12px; pointer-events:none; }
- 
- .player-name-mini { font-size: 9px; width: 100%; overflow: hidden;
- white-space: nowrap; text-overflow: ellipsis; margin-top: 2px; font-weight: normal; color: rgba(255,255,255,0.7); line-height: 1;
- }
-
+  .sanc-badge { display: inline-block; margin-left: 2px; font-size: 10px; line-height: 1; vertical-align: middle; }
+  .sanc-badge-red { color: #e74c3c; }
+  .sanc-badge-blue { color: #3498db; }
+  .sanc-badge-yellow { color: #f1c40f; }
+  .sanc-badge-2min { color: #e74c3c; font-weight: 900; font-size: 9px; background: rgba(231,76,60,0.2); padding: 0 2px; border-radius: 2px; }
   .center-score { font-size: 16px; font-weight: 800; color: var(--white); margin-bottom: 1px; background: rgba(0,0,0,0.3);
  padding: 2px 8px;
  border-radius: 6px;
@@ -469,10 +469,10 @@
   /* Bouton Tir Spé actif */
   .btn-tir-spec.active-qualifier { background: #546e7a; border: 1px solid #fff; box-shadow: 0 0 5px rgba(255,255,255,0.5); font-weight: bold; }
 
-  /* Actions Principales (Larges) */
-  .btn-but { background: #27ae60; flex: 2; font-size: 15px; } 
-  .btn-arret { background: #3498db; flex: 2; font-size: 15px; }
-  .btn-rate { background: #e74c3c; flex: 2; font-size: 15px; }
+  /* Actions Principales (Même largeur que les autres) */
+  .btn-but { background: #27ae60; flex: 1; font-size: 15px; } 
+  .btn-arret { background: #3498db; flex: 1; font-size: 15px; }
+  .btn-rate { background: #e74c3c; flex: 1; font-size: 15px; }
 
   /* Legend Styles */
   .stat-legend { display: flex; justify-content: center; gap: 10px; margin-bottom: 5px;
@@ -497,7 +497,57 @@
   @media (max-width:768px){ 
     /* Ajustement mobile pour correspondre à la grille joueurs (55px) */
     .btn-tm, .btn-sanc, .btn-pdb, .btn-def-err, .btn-qualifier { width: 55px; font-size: 10px; }
+    
+    /* CORRECTION RESPONSIVE : Barre d'actions avec flex-wrap */
+    #bottom-action-bar.action-bar-fullwidth {
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 3px !important;
+        padding: 3px !important;
+    }
+    #bottom-action-bar.action-bar-fullwidth .game-btn {
+        flex: 1 1 auto !important;
+        min-width: 0 !important;
+        height: 38px !important;
+        font-size: 11px !important;
+    }
+    /* Tous les boutons de la barre d'actions : même largeur */
+    #bottom-action-bar .game-btn {
+        flex: 1 1 0 !important;
+    }
+    
+    /* CORRECTION RESPONSIVE : Éviter le trou sous le terrain */
+    .court-wrap {
+        justify-content: flex-start !important;
+        height: auto !important;
+        min-height: 0 !important;
+        flex: 1 1 auto !important;
+    }
+    .strict-canvas {
+        height: auto !important;
+        max-height: none !important;
+        flex: 1 1 auto !important;
+    }
+    .arena-wrapper {
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+    }
   }
+  
+  /* CORRECTION CONTRASTE : Boutons Tir Spé et + (fond clair, texte foncé) */
+  .btn-tir-spec,
+  .btn-action-menu {
+      background: #cfd8dc !important;
+      color: #1a1a1a !important;
+      font-weight: 800 !important;
+      border: 1px solid #b0bec5 !important;
+  }
+  .btn-tir-spec:hover,
+  .btn-action-menu:hover {
+      background: #b0bec5 !important;
+  }
+
+
 
   .status{font-size:11px;color:var(--muted);width:100%;max-width:900px;text-align:center;padding:1px;background:rgba(255,255,255,0.03);border-radius:6px; flex-shrink: 0;}
   .status strong{color:var(--white);}
@@ -930,9 +980,9 @@ class="license-input" placeholder="Entrez votre clé...">
                 </div>
             </div>
             <div style="display: flex; gap: 4px; align-items: center; justify-content: flex-end; flex-shrink: 0;">
-                <button class="btn-mini-action" style="width: 32px; height: 32px; padding: 0; font-size: 14px; border-radius: 4px; display: flex; align-items: center; justify-content: center; margin: 0;" onclick="resetMatch()">🔄</button>
-                <button class="btn-mini-action btn-undo" style="width: 32px; height: 32px; padding: 0; font-size: 14px; border-radius: 4px; display: flex; align-items: center; justify-content: center; margin: 0;" onclick="undoLastAction()">↩</button>
-                <button class="btn-play-big" id="btn-timer-pause" style="width: 32px; height: 32px; padding: 0; font-size: 14px; border-radius: 4px; display: flex; align-items: center; justify-content: center; margin: 0;" onclick="toggleTimer()">▶</button>
+                <button class="btn-mini-action" style="width: 32px; height: 32px; padding: 0; font-size: 28px; border-radius: 4px; display: flex; align-items: center; justify-content: center; margin: 0;" onclick="resetMatch()">🔄</button>
+                <button class="btn-mini-action btn-undo" style="width: 32px; height: 32px; padding: 0; font-size: 28px; border-radius: 4px; display: flex; align-items: center; justify-content: center; margin: 0;" onclick="undoLastAction()">↩</button>
+                <button class="btn-play-big" id="btn-timer-pause" style="width: 32px; height: 32px; padding: 0; font-size: 28px; border-radius: 4px; display: flex; align-items: center; justify-content: center; margin: 0;" onclick="toggleTimer()">▶</button>
             </div>
         </div>
 
