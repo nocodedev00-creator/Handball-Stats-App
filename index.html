@@ -470,8 +470,9 @@
   .btn-qualifier { background: #37474f; color: #eceff1; border: 1px solid rgba(255,255,255,0.1); }
   .btn-qualifier.active-qual { background: #546e7a; border: 1px solid #fff; box-shadow: 0 0 5px rgba(255,255,255,0.5); font-weight: bold; }
   
-  /* Bouton Tir Spé actif */
-  .btn-tir-spec.active-qualifier { background: #546e7a; border: 1px solid #fff; box-shadow: 0 0 5px rgba(255,255,255,0.5); font-weight: bold; }
+  /* Bouton Dernière action */
+  .btn-last-action { background: #546e7a; color: #fff; border: 1px solid rgba(255,255,255,0.2); font-weight: bold; }
+  .btn-last-action:hover { background: #607d8b; }
 
   /* Actions Principales (Même largeur que les autres) */
   .btn-but { background: #27ae60; flex: 1; font-size: 15px; } 
@@ -538,15 +539,15 @@
     }
   }
   
-  /* CORRECTION CONTRASTE : Boutons Tir Spé et + (fond clair, texte foncé) */
-  .btn-tir-spec,
+  /* CORRECTION CONTRASTE : Bouton Dernière action et + (fond clair, texte foncé) */
+  .btn-last-action,
   .btn-action-menu {
       background: #cfd8dc !important;
       color: #1a1a1a !important;
       font-weight: 800 !important;
       border: 1px solid #b0bec5 !important;
   }
-  .btn-tir-spec:hover,
+  .btn-last-action:hover,
   .btn-action-menu:hover {
       background: #b0bec5 !important;
   }
@@ -693,7 +694,67 @@
     .journal-col-score { font-size: 14px; }
   }
 
+  /* ================= POPUP TIRS SPÉCIAUX (LONG-PRESS) ================= */
+  .longpress-popup {
+    position: fixed;
+    z-index: 15000;
+    background: #1a2634;
+    border: 2px solid var(--gold);
+    border-radius: 10px;
+    padding: 10px;
+    min-width: 200px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.7);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    animation: longpress-popup-in 0.15s ease-out;
+  }
+  .longpress-popup.hidden {
+    display: none;
+  }
+  @keyframes longpress-popup-in {
+    from { opacity: 0; transform: translateY(8px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .longpress-popup-header {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--gold);
+    text-align: center;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 2px;
+  }
+  .longpress-option {
+    display: block;
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px;
+    background: rgba(255,255,255,0.05);
+    color: var(--white);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.15s;
+    font-family: inherit;
+  }
+  .longpress-option:hover {
+    background: rgba(255,255,255,0.12);
+    border-color: var(--gold);
+  }
+  .longpress-option:active {
+    transform: scale(0.97);
+  }
+  .longpress-popup-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+    margin: 2px 0;
+  }
+
   /* ================= NOTIFICATION DE MISE À JOUR ================= */
+
   .update-notification {
     position: fixed;
     top: 0;
@@ -821,7 +882,68 @@
   .update-notification-btn-secondary:hover {
     background: #455a64;
   }
+
+  /* ========== LONG-PRESS POPUP ========== */
+  #longpress-popup {
+    position: fixed;
+    z-index: 99999;
+    background: #153247;
+    border: 2px solid #ffd700;
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.7);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 180px;
+    animation: popupFadeIn 0.2s ease-out;
+  }
+  #longpress-popup.hidden {
+    display: none !important;
+  }
+  @keyframes popupFadeIn {
+    from { opacity: 0; transform: translateY(8px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .longpress-popup-header {
+    color: #ffd700;
+    font-size: 14px;
+    font-weight: 800;
+    text-align: center;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(255,215,0,0.3);
+    margin-bottom: 4px;
+  }
+  .longpress-option {
+    padding: 10px 12px;
+    border: none;
+    border-radius: 8px;
+    background: #1f4057;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.15s, transform 0.1s;
+  }
+  .longpress-option:hover {
+    background: #2a5a78;
+    transform: scale(1.02);
+  }
+  .longpress-option:active {
+    transform: scale(0.97);
+  }
+  .longpress-option.sans-qualif {
+    background: #546e7a;
+    color: #fff;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+  .longpress-option.sans-qualif:hover {
+    background: #6d8a9e;
+  }
 </style>
+
 </head>
 <body>
 
@@ -1099,7 +1221,7 @@ class="license-input" placeholder="Entrez votre clé...">
 
     <!-- Barre d'actions pleine largeur (en bas) -->
     <div id="bottom-action-bar" class="action-bar-fullwidth">
-      <button class="game-btn btn-tir-spec" onclick="openActionSheet('tir-spec')">Tir Spé ▼</button>
+      <button class="game-btn btn-last-action" onclick="openLastActionMatrix()">↩ Dernière action</button>
       <button class="game-btn btn-but" onclick="setAction('But')">✓ But</button>
       <button class="game-btn btn-arret" onclick="setAction('Arrêt')">⊗ Arrêt</button>
       <button class="game-btn btn-rate" onclick="setAction('Raté')">✗ Raté</button>
@@ -1170,6 +1292,17 @@ class="license-input" placeholder="Entrez votre clé...">
           <button class="qa-footer-btn" onclick="closeQuickActions(); openActionMatrixForNew();">📋 Action détaillée (but + erreur déf + sanctions...)</button>
         </div>
       </div>
+    </div>
+
+    <!-- POPUP TIRS SPÉCIAUX (LONG-PRESS SUR But/Arrêt/Raté) -->
+    <div id="longpress-popup" class="longpress-popup hidden">
+        <div class="longpress-popup-header">🔫 Tir spécial ?</div>
+        <button class="longpress-option" data-qualifier="Lob">🔼 Lob / Chabala</button>
+        <button class="longpress-option" data-qualifier="Roucoulette">◻️ Roucoulette</button>
+        <button class="longpress-option" data-qualifier="Rebond">◇ Rebond</button>
+        <div class="longpress-popup-divider"></div>
+        <button class="longpress-option" data-qualifier="none">✓ Pas de tir spé</button>
+
     </div>
 
     <!-- TOAST FLASH DE CONFIRMATION -->
