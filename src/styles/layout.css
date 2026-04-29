@@ -439,9 +439,35 @@ svg#court, svg#court-stats-svg, svg#court-defense-svg {
     border-color: var(--gold);
 }
 
+@keyframes blinker {
+    0%, 49% { opacity: 1; color: #ff0000; }
+    50%, 100% { opacity: 1; color: #ffff00; }
+}
+
+#pause-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 900;
+    color: #ffff00;
+    text-shadow: 0 0 4px rgba(255,0,0,0.8);
+    background: rgba(0,0,0,0.3);
+    pointer-events: none;
+    z-index: 100;
+    letter-spacing: 1px;
+    animation: blinker 1s linear infinite;
+    border-radius: 4px;
+}
+
 @keyframes gb-no-selection-blink {
-    0%, 49% { border-color: #ff0000; background-color: rgba(255,0,0,0.35); box-shadow: 0 0 8px 2px rgba(255,0,0,0.5); }
-    50%, 100% { border-color: #ffffff; background-color: rgba(255,255,255,0.25); box-shadow: 0 0 12px 4px rgba(255,255,255,0.4); }
+    0%, 49% { border-color: #ff0000; background-color: rgba(255,0,0,0.7); }
+    50%, 100% { border-color: #ffff00; background-color: rgba(255,255,0,0.5); }
 }
 
 .gb-selector.gb-no-selection {

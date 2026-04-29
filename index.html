@@ -55,19 +55,17 @@
 
   /* ================= PANEL ACTIONS RAPIDES (+) ================= */
   .quick-actions-overlay {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     z-index: 9999;
     display: none;
-    justify-content: center;
-    align-items: center;
     pointer-events: none;
   }
   .quick-actions-overlay.active {
-    display: flex;
+    display: block;
   }
   .quick-actions-panel {
     pointer-events: auto;
@@ -75,17 +73,17 @@
     border: 2px solid var(--gold);
     border-radius: 12px;
     padding: 12px;
-    width: 100%;
-    max-width: 500px;
-    max-height: 85vh;
     overflow-y: auto;
     box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-    position: relative;
     box-sizing: border-box;
+    max-height: 98vh;
+    display: flex;
+    flex-direction: column;
+    /* La position et la largeur sont définies dynamiquement en JS */
   }
   @media (max-width:768px){
     .quick-actions-panel {
-      max-width: 95%;
+      padding: 8px;
     }
   }
   .quick-actions-header {
@@ -151,14 +149,16 @@
     background: #0f2436;
     color: var(--white);
   }
-  /* GRILLE 2x2 : Erreurs en haut, Actions en bas */
+  /* GRILLE 2x2 : occupe toute la hauteur disponible */
   .qa-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 8px;
     margin-bottom: 8px;
+    flex: 1;
+    min-height: 0;
   }
-  /* Colonnes distinctes */
+  /* Colonnes distinctes - chaque colonne s'étire en hauteur */
   .qa-col-wrap {
     display: flex;
     flex-direction: column;
@@ -166,6 +166,8 @@
     padding: 6px 4px;
     border-radius: 6px;
     border: 1px solid rgba(255,255,255,0.08);
+    flex: 1;
+    min-height: 0;
   }
   /* Erreurs : bordure rouge */
   .qa-col-wrap.qa-col-err-off {
@@ -200,7 +202,8 @@
   .qa-btn {
     display: block;
     width: 100%;
-    padding: 8px 2px;
+    flex: 1;
+    padding: 4px 2px;
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 4px;
     background: rgba(255,255,255,0.05);
@@ -210,7 +213,8 @@
     cursor: pointer;
     text-align: center;
     transition: all 0.15s;
-    line-height: 1.2;
+    line-height: 1.1;
+    min-height: 0;
   }
   .qa-btn:hover {
     background: rgba(255,255,255,0.12);
