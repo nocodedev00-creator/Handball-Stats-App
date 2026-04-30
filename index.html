@@ -1396,41 +1396,31 @@ id="right-team-color" value="#fff176">
 
       <div class="team-config" id="match-config">
         <h2>Paramètres du Match</h2>
-   
-     
- <div class="row-input">
-          <label>Durée Mi-temps (min):</label>
-          <input type="number" id="cfg-mt-duration" value="30" min="1">
-  
-       </div>
- 
-  
-     
- 
-  <div class="row-input">
+
+        <div class="row-input">
+          <label>Nombre de périodes:</label>
+          <input type="number" id="cfg-period-count" value="2" min="1" max="6" onchange="updatePeriodDurationLabel()" oninput="updatePeriodDurationLabel()">
+        </div>
+        <div class="row-input">
+          <label>Durée par période (min):</label>
+          <input type="number" id="cfg-period-duration" value="30" min="1" onchange="updatePeriodDurationLabel()" oninput="updatePeriodDurationLabel()">
+          <small id="cfg-period-duration-hint" style="color:#98a3b3; font-size:11px; margin-top:2px;">Ex: 2 périodes × 30 min = 60 min total</small>
+        </div>
+
+        <div class="row-input">
            <label><input type="checkbox" id="cfg-overtime-enabled" onchange="toggleOvertimeConfig()"> Activer les prolongations</label>
         </div>
         <div id="overtime-config" style="display: none;">
             <div class="row-input">
- 
-      
-         <label>Nombre de prolongations:</label>
-               
- <input type="number" id="cfg-overtime-count" value="2" min="1">
-    
-   
-   
-   
-   </div>
+              <label>Nombre de prolongations:</label>
+              <input type="number" id="cfg-overtime-count" value="2" min="1">
+            </div>
             <div class="row-input">
                 <label>Durée par prolongation (min):</label>
-                <input type="number" id="cfg-overtime-duration" 
-value="5" min="1">
-      
-       </div>
-       </div>
+                <input type="number" id="cfg-overtime-duration" value="5" min="1">
+            </div>
+        </div>
        
- 
       <div class="row-input" style="margin-top: 
  10px;
  border-top: 1px solid #334;
