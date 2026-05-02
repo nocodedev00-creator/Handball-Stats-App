@@ -1649,16 +1649,24 @@ L 360,560 L 0,560 Z"></path>
     <div id="journal-report-title" style="text-align:center;
  margin: 15px 0 10px 0; width:100%; max-width:900px;"></div>
 
-    <div class="graph-container">
-        <div class="graph-title">Évolution Score - 1ère Mi-temps</div>
-      
-  <svg id="score-graph-mt1" class="score-graph-svg" viewBox="0 0 500 200" preserveAspectRatio="none"></svg>
+    <!-- Stats globales (rempli par buildComparativeStatsHTML) -->
+    <div id="journal-stats-comparative" style="width:100%; max-width:900px; margin:0 auto 10px auto;"></div>
+
+    <!-- Graphiques d'évolution du score (remplis par drawScoreGraph) -->
+    <div class="graphs-area" style="width:100%; max-width:900px; margin:0 auto 10px auto;">
+        <div class="graph-section-title" style="text-align:center; color:var(--gold); font-weight:bold; font-size:14px; margin-bottom:8px;">📈 Évolution du Score</div>
+        <div class="graph-container" style="display:none;">
+            <div class="graph-title">Évolution Score - 1ère Mi-temps</div>
+            <svg id="score-graph-mt1" class="score-graph-svg" viewBox="0 0 500 200" preserveAspectRatio="none"></svg>
+        </div>
+        <div class="graph-container" style="display:none;">
+            <div class="graph-title">Évolution Score - 2ème Mi-temps</div>
+            <svg id="score-graph-mt2" class="score-graph-svg" viewBox="0 0 500 200" preserveAspectRatio="none"></svg>
+        </div>
+        <div id="extra-period-graphs"></div>
+        <div id="overtime-graphs"></div>
+        <div id="score-graph-main"></div>
     </div>
-    <div class="graph-container">
-        <div class="graph-title">Évolution Score - 2ème Mi-temps</div>
-        <svg id="score-graph-mt2" class="score-graph-svg" viewBox="0 0 500 200" preserveAspectRatio="none"></svg>
-    </div>
-    <div id="overtime-graphs"></div>
 
     <div class="journal-log-container">
       <div class="journal-header">

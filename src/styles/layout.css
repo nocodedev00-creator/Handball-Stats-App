@@ -439,30 +439,66 @@ svg#court, svg#court-stats-svg, svg#court-defense-svg {
     border-color: var(--gold);
 }
 
+/* Animation universelle synchronisée : tous les clignotements utilisent overlay-blink */
 @keyframes blinker {
-    0%, 49% { opacity: 1; color: #ff0000; }
-    50%, 100% { opacity: 1; color: #ffff00; }
+    0% { opacity: 1; }
+    50% { opacity: 0.15; }
 }
 
-#pause-overlay {
+/* Conteneur fixe pour les overlays du but (2 lignes, position stable) */
+#goal-overlays-container {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    z-index: 95;
+    gap: 4px;
+}
+
+.goal-overlay-line {
+    display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    height: 28px; /* Hauteur fixe pour que la position ne bouge pas */
     font-size: 18px;
     font-weight: 900;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    opacity: 0; /* Caché par défaut */
+    transition: opacity 0.2s;
+}
+
+.goal-overlay-line.visible {
+    opacity: 1;
+}
+
+#pause-overlay {
     color: #ffff00;
     text-shadow: 0 0 4px rgba(255,0,0,0.8);
     background: rgba(0,0,0,0.3);
-    pointer-events: none;
-    z-index: 100;
-    letter-spacing: 1px;
-    animation: blinker 1s linear infinite;
-    border-radius: 4px;
+}
+
+#empty-goal-overlay {
+    color: #ff4444;
+    text-shadow: 0 0 8px rgba(255,0,0,0.9), 0 0 4px #000;
+    background: rgba(0,0,0,0.25);
+}
+
+/* Animation synchronisée fluide : tous les éléments clignotent en même temps */
+.goal-overlay-line.blink {
+    animation: overlay-blink 1s ease-in-out infinite;
+}
+
+@keyframes overlay-blink {
+    0% { opacity: 1; }
+    50% { opacity: 0.15; }
 }
 
 @keyframes gb-no-selection-blink {
@@ -534,7 +570,7 @@ svg#court, svg#court-stats-svg, svg#court-defense-svg {
     padding: 1px 3px;
     border-radius: 3px;
     font-weight: 800;
-    animation: blinker 1s linear infinite;
+    animation: overlay-blink 1s ease-in-out infinite;
 }
 
 .indicators {
