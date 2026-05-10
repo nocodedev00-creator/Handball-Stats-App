@@ -140,3 +140,9 @@
 .comp-bar-item { display: flex; align-items: center; gap: 2px; }
 .comp-bar-fill { height: 4px; border-radius: 2px; transition: width 0.3s; }
 .comp-bar-val { font-size: 8px; font-weight: bold; color: #fff; line-height: 1; }
+
+/* ================= JOURNAL ================= */
+.journal-action.but {
+    color: #2ecc71 !important;
+    font-weight: bold !important;
+}
